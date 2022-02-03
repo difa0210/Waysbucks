@@ -10,21 +10,21 @@ import Navbar from "./components/navbar";
 import LandingPage from "./components/landing-page";
 import Products from "./components/product";
 import Topping from "./components/topping";
+import Cart from "./components/cart";
 import DetailProducts from "./components/detail-product";
 
 function Component() {
   return (
     // <Router>
     <div className="container my-5">
-      
-        <Navbar />
-        <LandingPage />
-        <DetailProducts />
-        <Products />
-        <Topping/>
-        <Login />
-        <Register />
-         
+      <Navbar />
+      <LandingPage />
+      <DetailProducts />
+      <Products />
+      <Topping />
+      <Cart />
+      <Login />
+      <Register />
     </div>
     // <Route>
 

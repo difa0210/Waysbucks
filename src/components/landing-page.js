@@ -26,7 +26,7 @@ function LandingPage() {
       <Row
         className="p-5 text-white"
         style={{
-          height: "40vh",
+          height: "27rem",
           backgroundColor: "#BD0707",
           borderRadius: "1rem",
           marginRight: "10rem",
