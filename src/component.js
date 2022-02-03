@@ -1,17 +1,21 @@
 import React from "react";
 
-import Header from "./components/header";
-import Content from "./components/content";
+import "./component.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Register from "./components/register";
+import Login from "./components/login";
+import Navbar from "./components/navbar";
+import LandingPage from "./components/landing-page";
 
 function Component() {
   return (
-    <div className="container">
-      <div className="">
-        <Header />
-      </div>
-      <div className="">
-        <Content />
-      </div>
+    <div className="container my-5">
+      <div>
+        <Navbar />
+        <LandingPage />
+        <Register />
+        <Login />
+        </div>  
     </div>
   );
 }
