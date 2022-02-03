@@ -20,7 +20,7 @@ import {
   Card
 } from "react-bootstrap";
 
-function Content() {
+function LandingPage() {
   return (
     <div className="p-5">
       <Row
@@ -32,7 +32,7 @@ function Content() {
           marginRight: "10rem",
         }}
       >
-        <Col lg={8}>
+        <Col lg={8} className="">
           <p
             className="fw-bold"
             style={{
@@ -101,4 +101,4 @@ function Content() {
   );
 }
 
-export default Content;
+export default LandingPage;

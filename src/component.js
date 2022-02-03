@@ -1,22 +1,35 @@
 import React from "react";
 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import "./component.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./components/register";
 import Login from "./components/login";
 import Navbar from "./components/navbar";
 import LandingPage from "./components/landing-page";
+import Products from "./components/product";
+import Topping from "./components/topping";
+import DetailProducts from "./components/detail-product";
 
 function Component() {
   return (
+    // <Router>
     <div className="container my-5">
-      <div>
+      
         <Navbar />
         <LandingPage />
-        <Register />
+        <DetailProducts />
+        <Products />
+        <Topping/>
         <Login />
-        </div>  
+        <Register />
+         
     </div>
+    // <Route>
+
+    // </Route>
+    // </Router>
   );
 }
 
