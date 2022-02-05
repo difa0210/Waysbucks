@@ -5,28 +5,17 @@ import Image1 from "../image/Rectangle 5.png";
 import Image2 from "../image/trash.png";
 import Image3 from "../image/invoices 1.png";
 
-import {
-  Navbar,
-  Container,
-  Nav,
-  NavDropdown,
-  Form,
-  Button,
-  FormControl,
-  Image,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Form, Button, Image, Row, Col } from "react-bootstrap";
+import ModalPay from "../components/ModalPay";
 
 function Cart() {
   return (
-    <div className="p-5">
+    <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
         <Col className="">
           <Row className="fs-2 fw-bold mb-4">My Cart</Row>
           <Row className="fw-bold">Review Your Order</Row>
-          <hr />
+          <hr className="opacity-100" />
           <Row className="mb-4">
             <Col className="p-0">
               <Image style={{ borderRadius: "0.5rem" }} src={Image1} />
@@ -63,10 +52,10 @@ function Cart() {
               </Button>
             </Col>
           </Row>
-          <hr />
+          <hr className="opacity-100" />
           <Row>
             <Col lg={7}>
-              <hr />
+              <hr className="opacity-100" />
               <Row className="mb-3">
                 <Col lg={6} className="fw-bold">
                   Subtotal
@@ -83,7 +72,7 @@ function Cart() {
                   2
                 </Col>
               </Row>
-              <hr />
+              <hr className="opacity-100" />
               <Row className="fw-bold">
                 <Col lg={6}>Total</Col>
                 <Col lg={6} className="text-end">
@@ -91,14 +80,16 @@ function Cart() {
                 </Col>
               </Row>
             </Col>
-            <Col>
-              <Form.Group
-                className=""
-                controlId="formBasicTextarea"
-              >
-                  
-                <Form.Control type="text" placeholder="Attached Of Transaction" Image3 />
-              </Form.Group>
+            <Col
+              className="m-3 d-flex flex-column justify-content-center align-items-center fw-bold"
+              style={{
+                borderRadius: "0.3rem",
+                border: "2px solid #BD0707",
+                backgroundColor: "#F6DADA",
+              }}
+            >
+              <Image className="mb-3" src={Image3} />
+              <p className="opacity-25 m-0">Attached of Transaction</p>
             </Col>
           </Row>
         </Col>
@@ -112,7 +103,7 @@ function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="text" placeholder="Name" required />
+              <Form.Control type="text" placeholder="Name" />
             </Form.Group>
             <Form.Group
               className="mb-4"
@@ -122,7 +113,7 @@ function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="email" placeholder="Email" required />
+              <Form.Control type="email" placeholder="Email" />
             </Form.Group>
 
             <Form.Group
@@ -133,7 +124,7 @@ function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="number" placeholder="Phone" required />
+              <Form.Control type="number" placeholder="Phone" />
             </Form.Group>
 
             <Form.Group
@@ -144,7 +135,7 @@ function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="number" placeholder="Pos Code" required />
+              <Form.Control type="number" placeholder="Pos Code" />
             </Form.Group>
 
             <Form.Group
@@ -155,18 +146,9 @@ function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control as="textarea" placeholder="Address" required />
+              <Form.Control as="textarea" placeholder="Address" />
             </Form.Group>
-            <Button
-              className="container bg-btn-red fw-bold fs-5"
-              variant=""
-              type="submit"
-              style={{
-                borderRadius: "0.3rem",
-              }}
-            >
-              Pay
-            </Button>
+            <ModalPay />
           </Form>
         </Col>
       </Row>

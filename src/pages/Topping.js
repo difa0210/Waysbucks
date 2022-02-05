@@ -3,23 +3,11 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image1 from "../image/Rectangle 4.png";
 
-import {
-  Navbar,
-  Container,
-  Nav,
-  NavDropdown,
-  Form,
-  Button,
-  FormControl,
-  Image,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Form, Button, Image, Row, Col } from "react-bootstrap";
 
 function Topping() {
   return (
-    <div className="p-5">
+    <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
         <Col lg={7} className="p-5">
           <Form>
@@ -32,7 +20,7 @@ function Topping() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="text" placeholder="Name Topping" required />
+              <Form.Control type="text" placeholder="Name Topping" />
             </Form.Group>
             <Form.Group
               className="mb-4"
@@ -42,7 +30,7 @@ function Topping() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="number" placeholder="Price" required />
+              <Form.Control type="number" placeholder="Price" />
             </Form.Group>
             <Form.Group
               className="mb-5"
@@ -52,18 +40,18 @@ function Topping() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="file" placeholder="Photo Topping" required />
+              <Form.Control type="file" placeholder="Photo Topping" />
             </Form.Group>
             <Button
-                className="container bg-btn-red fw-bold fs-5"
-                variant=""
-                type="submit"
-                style={{
-                  borderRadius: "0.3rem",
-                }}
-              >
-                Add Topping
-              </Button>
+              className="container bg-btn-red fw-bold fs-5"
+              variant=""
+              type="submit"
+              style={{
+                borderRadius: "0.3rem",
+              }}
+            >
+              Add Topping
+            </Button>
           </Form>
         </Col>
 

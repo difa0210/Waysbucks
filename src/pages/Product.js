@@ -3,23 +3,11 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image1 from "../image/Detail.png";
 
-import {
-  Navbar,
-  Container,
-  Nav,
-  NavDropdown,
-  Form,
-  Button,
-  FormControl,
-  Image,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Form, Button, Image, Row, Col } from "react-bootstrap";
 
 function Products() {
   return (
-    <div className="p-5">
+    <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
         <Col lg={7} className="p-5">
           <Form>
@@ -32,7 +20,7 @@ function Products() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="text" placeholder="Name Product" required />
+              <Form.Control type="text" placeholder="Name Product" />
             </Form.Group>
             <Form.Group
               className="mb-4"
@@ -42,7 +30,7 @@ function Products() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="number" placeholder="Price" required />
+              <Form.Control type="number" placeholder="Price" />
             </Form.Group>
             <Form.Group
               className="mb-5"
@@ -52,22 +40,22 @@ function Products() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="file" placeholder="Photo Product" required />
+              <Form.Control type="file" placeholder="Photo Product" />
             </Form.Group>
             <Button
-                className="container bg-btn-red fw-bold fs-5"
-                variant=""
-                type="submit"
-                style={{
-                  borderRadius: "0.3rem",
-                }}
-              >
-                Add Product
-              </Button>
+              className="container bg-btn-red fw-bold fs-5"
+              variant=""
+              type="submit"
+              style={{
+                borderRadius: "0.3rem",
+              }}
+            >
+              Add Product
+            </Button>
           </Form>
         </Col>
 
-        <Col  lg={5} className="d-flex justify-content-center">
+        <Col lg={5} className="d-flex justify-content-center">
           <Image
             className="img-fluid"
             style={{ borderRadius: "0.5rem" }}
