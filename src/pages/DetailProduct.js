@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import Image1 from "../image/Detail.png";
 import Image2 from "../image/Rectangle 9-1.png";
 import Image3 from "../image/Rectangle 9-2.png";
@@ -14,7 +16,7 @@ import Image9 from "../image/Rectangle 9.png";
 
 import { Button, Image, Row, Col } from "react-bootstrap";
 
-function DetailProducts() {
+export default function DetailProducts() {
   const productPrice = 27000;
   const [totalPrice, setTotalPrice] = useState(productPrice);
   const [topping, setTopping] = useState([
@@ -27,7 +29,7 @@ function DetailProducts() {
     { name: "Manggo", image: Image2, price: 3000, isSelected: false },
     { name: "Green Coconut", image: Image3, price: 3000, isSelected: false },
     { name: "Boba Manggo", image: Image4, price: 3000, isSelected: false },
-    { name: "Bill Berry Boba", image: Image3, price: 3000, isSelected: false },
+    { name: "Bill Berry Boba", image: Image5, price: 3000, isSelected: false },
     {
       name: "Kiwi Popping Pearl",
       image: Image6,
@@ -95,56 +97,6 @@ function DetailProducts() {
                 </button>
               </Col>
             ))}
-
-            {/* <Col
-              lg={3}
-              className="d-flex flex-column justify-content-center align-items-center text-center"
-            >
-              <Image style={{ borderRadius: "0.5rem" }} src={Image3} />
-              <p>Manggo</p>
-            </Col>
-            <Col
-              lg={3}
-              className="d-flex flex-column justify-content-center align-items-center text-center"
-            >
-              <Image style={{ borderRadius: "0.5rem" }} src={Image4} />
-              <p>Green Coconut</p>
-            </Col>
-            <Col
-              lg={3}
-              className="d-flex flex-column justify-content-center align-items-center text-center"
-            >
-              <Image style={{ borderRadius: "0.5rem" }} src={Image6} />
-              <p>Boba Manggo</p>
-            </Col>
-            <Col
-              lg={3}
-              className="d-flex flex-column justify-content-center align-items-center text-center"
-            >
-              <Image style={{ borderRadius: "0.5rem" }} src={Image6} />
-              <p>Bill Berry Boba</p>
-            </Col>
-            <Col
-              lg={3}
-              className="d-flex flex-column justify-content-center align-items-center text-center"
-            >
-              <Image style={{ borderRadius: "0.5rem" }} src={Image7} />
-              <p>Kiwi Popping Pearl</p>
-            </Col>
-            <Col
-              lg={3}
-              className="d-flex flex-column justify-content-center align-items-center text-center"
-            >
-              <Image style={{ borderRadius: "0.5rem" }} src={Image8} />
-              <p>Matcha Cantaloupe</p>
-            </Col>
-            <Col
-              lg={3}
-              className="d-flex flex-column justify-content-center align-items-center text-center"
-            >
-              <Image style={{ borderRadius: "0.5rem" }} src={Image9} />
-              <p>Strawberry Popping</p>
-            </Col> */}
           </Row>
           <Row className="mb-5 fw-bold fs-3">
             <Col lg={6}>Total</Col>
@@ -173,5 +125,3 @@ function DetailProducts() {
     </div>
   );
 }
-
-export default DetailProducts;

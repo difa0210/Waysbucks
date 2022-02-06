@@ -19,8 +19,10 @@ export default function ModalTransaction() {
       </Button>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Body
-          style={{ backgroundColor: "#F6DADA", color: "#BD0707" }}
-          className="rounded"
+          style={{
+            backgroundColor: "#F6DADA",
+            color: "#BD0707",
+          }}
         >
           <Row className="p-3">
             <Col lg={9} className="">

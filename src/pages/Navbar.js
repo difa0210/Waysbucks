@@ -1,8 +1,9 @@
 import { React, useState } from "react";
 
 import { Link } from "react-router-dom";
-import "../styles/Navbar.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import Image1 from "../image/Group.png";
 import Image2 from "../image/User.png";
 import Image3 from "../image/user 2.png";
@@ -88,7 +89,10 @@ const NavBar = () => {
                             <Image src={Image3} className="me-3" />
                             Profile
                           </Dropdown.Item>
-
+                          <hr
+                            style={{ color: "#BD0707" }}
+                            className="opacity-100"
+                          />
                           <Dropdown.Item
                             style={{ color: "#BD0707" }}
                             href="/"
@@ -100,14 +104,6 @@ const NavBar = () => {
                           >
                             <Image src={Image4} className="me-3" />
                             Logout
-                          </Dropdown.Item>
-
-                          <Dropdown.Item
-                            style={{ color: "#BD0707" }}
-                            href="/admin"
-                            className="mb-3 fw-bold"
-                          >
-                            Admin
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>

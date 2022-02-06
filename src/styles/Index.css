@@ -1,0 +1,19 @@
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.dropdown-toggle {
+  background-color: white !important;
+  border-color: white !important;
+}
+
+.bg-btn-red {
+  border: 0.18rem solid #bd0707 !important;
+  color: white !important;
+  background-color: #bd0707 !important;
+}
+
+.bg-btn-white {
+  border: 0.18rem solid #bd0707 !important;
+  color: #bd0707 !important;
+}

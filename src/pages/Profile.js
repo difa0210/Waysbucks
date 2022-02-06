@@ -1,10 +1,13 @@
 import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import Image1 from "../image/Mask Group.png";
 import Image2 from "../image/transaction.png";
 import Image3 from "../image/logoProfile.png";
 import Image4 from "../image/barcode.png";
+
+import { Link } from "react-router-dom";
 
 import { Button, Image, Row, Col } from "react-bootstrap";
 
@@ -76,13 +79,15 @@ function Profile() {
                 <Image className="mb-3" src={Image4} />
               </Col>
               <Col className="fw-bold d-flex flex-column justify-content-center text-center">
-                <Button
-                  className="mb-2"
-                  style={{ fontSize: "0.8rem" }}
-                  as="input"
-                  type="submit"
-                  value="On The Way"
-                />
+                <Link to="/admin">
+                  <Button
+                    className="mb-2"
+                    style={{ fontSize: "0.8rem" }}
+                    as="input"
+                    type="submit"
+                    value="On The Way"
+                  />
+                </Link>
                 <p style={{ fontSize: "0.8rem" }}>Sub Total : 69.000</p>
               </Col>
             </Col>

@@ -6,5 +6,15 @@ import Cart from "./Cart";
 import Admin from "./Admin";
 import Profile from "./Profile";
 import DetailProducts from "./DetailProduct";
+import "../styles/Index.css";
 
-export {Navbar, LandingPage, DetailProducts, Products, Topping, Cart, Admin, Profile}
+export {
+  Navbar,
+  LandingPage,
+  DetailProducts,
+  Products,
+  Topping,
+  Cart,
+  Admin,
+  Profile,
+};

@@ -2,10 +2,11 @@ import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
 export default function ModalRegister(props) {
-  //   const [show, setShow] = useState(false);
-
-  //   const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
+  const handleLogin = () => {
+    localStorage.setItem("login", "login");
+    props.toggle();
+    window.location.reload();
+  };
 
   return (
     <>
@@ -63,6 +64,7 @@ export default function ModalRegister(props) {
               style={{
                 borderRadius: "0.3rem",
               }}
+              onClick={handleLogin}
             >
               Register
             </Button>

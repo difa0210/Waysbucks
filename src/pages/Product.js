@@ -1,7 +1,9 @@
 import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import Image1 from "../image/Detail.png";
+// import Image2 from "../image/cart.png";
 
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
 
@@ -40,7 +42,12 @@ function Products() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="file" placeholder="Photo Product" />
+              {" "}
+              <Form.Control
+                type="file"
+                placeholder="Photo Product"
+                // id={<Image src={Image2} />}
+              />
             </Form.Group>
             <Button
               className="container bg-btn-red fw-bold fs-5"
@@ -56,11 +63,7 @@ function Products() {
         </Col>
 
         <Col lg={5} className="d-flex justify-content-center">
-          <Image
-            className="img-fluid"
-            style={{ borderRadius: "0.5rem" }}
-            src={Image1}
-          />
+          <Image className="" style={{ borderRadius: "0.5rem" }} src={Image1} />
         </Col>
       </Row>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import Image1 from "../image/cancel.png";
 import Image2 from "../image/done.png";
 
