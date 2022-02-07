@@ -7,7 +7,7 @@ import Image1 from "../image/Detail.png";
 
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
 
-function Products() {
+export default function Products() {
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
@@ -69,5 +69,3 @@ function Products() {
     </div>
   );
 }
-
-export default Products;

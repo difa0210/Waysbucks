@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 import { Button, Image, Row, Col } from "react-bootstrap";
 
-function Profile() {
+export default function Profile() {
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
@@ -97,5 +97,3 @@ function Profile() {
     </div>
   );
 }
-
-export default Profile;

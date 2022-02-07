@@ -9,7 +9,7 @@ import Image3 from "../image/invoices 1.png";
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
 import ModalPay from "../components/ModalPay";
 
-function Cart() {
+export default function Cart() {
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
@@ -156,5 +156,3 @@ function Cart() {
     </div>
   );
 }
-
-export default Cart;

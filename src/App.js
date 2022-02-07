@@ -14,7 +14,7 @@ import {
   Profile,
 } from "./pages/Index";
 
-function App() {
+export default function App() {
   return (
     <Router>
       <Navbar />
@@ -31,5 +31,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

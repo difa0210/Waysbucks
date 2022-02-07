@@ -5,7 +5,7 @@ import Image1 from "../image/Rectangle 4.png";
 
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
 
-function Topping() {
+export default function Topping() {
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
@@ -66,5 +66,3 @@ function Topping() {
     </div>
   );
 }
-
-export default Topping;
