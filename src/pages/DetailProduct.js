@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { React, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -73,7 +73,7 @@ export default function DetailProducts() {
             </p>
           </Row>
           <Row className="mb-4">
-            <p className="fs-4">Rp.27.000</p>
+            <p className="fs-4">Rp. {productPrice}</p>
           </Row>
           <Row>
             <p className="fw-bold fs-3">Topping</p>

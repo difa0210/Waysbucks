@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -9,6 +9,15 @@ import { Table } from "react-bootstrap";
 import ModalTransaction from "../components/ModalTransaction";
 
 export default function Admin() {
+  const [dataTable, setdataTable] = useState([
+    {
+      name: "Sugeng No Pants",
+      city: "Cileungsi",
+      posCode: 16820,
+      price: 69000,
+      status: "Waiting Approve",
+    },
+  ]);
   return (
     <div className="container p-5">
       <p className="fw-bold fs-2 mb-4" style={{ color: "#BD0707" }}>
@@ -27,22 +36,24 @@ export default function Admin() {
           </tr>
         </thead>
         <tbody className="text-center">
-          <tr>
-            <td>1</td>
-            <td>Sugeng No Pants</td>
-            <td>Cileungsi</td>
-            <td>16820</td>
-            <td>Rp. 69.000</td>
-            <td>Waiting Approve</td>
-            <td className="d-flex justify-content-center">
-              <button type="button" className="btn btn-success mx-2">
-                Approve
-              </button>
-              <button type="button" className="btn btn-danger mx-2">
-                Cancel
-              </button>
-            </td>
-          </tr>
+          {dataTable.map((item) => (
+            <tr>
+              <td>1</td>
+              <td>{item.name}</td>
+              <td>{item.city}</td>
+              <td>{item.posCode}</td>
+              <td>Rp. {item.price}</td>
+              <td>{item.status}</td>
+              <td className="d-flex justify-content-center">
+                <button type="button" className="btn btn-success mx-2">
+                  Approve
+                </button>
+                <button type="button" className="btn btn-danger mx-2">
+                  Cancel
+                </button>
+              </td>
+            </tr>
+          ))}
 
           <tr>
             <td>2</td>
