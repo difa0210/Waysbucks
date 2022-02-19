@@ -1,6 +1,6 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,91 +13,112 @@ import Image6 from "../image/Rectangle 9-5.png";
 import Image7 from "../image/Rectangle 9-6.png";
 import Image8 from "../image/Rectangle 9-7.png";
 import Image9 from "../image/Rectangle 9.png";
-
+import { API } from "../config/api";
 import { Button, Image, Row, Col } from "react-bootstrap";
 
 export default function DetailProducts() {
+  const { productId } = useParams();
   const productPrice = 27000;
   const [totalPrice, setTotalPrice] = useState(productPrice);
-  const [topping, setTopping] = useState([
-    {
-      name: "Bubble Tea Gelatin",
-      image: Image9,
-      price: 3000,
-      isSelected: false,
-    },
-    { name: "Manggo", image: Image2, price: 3000, isSelected: false },
-    { name: "Green Coconut", image: Image3, price: 3000, isSelected: false },
-    { name: "Boba Manggo", image: Image4, price: 3000, isSelected: false },
-    { name: "Bill Berry Boba", image: Image5, price: 3000, isSelected: false },
-    {
-      name: "Kiwi Popping Pearl",
-      image: Image6,
-      price: 3000,
-      isSelected: false,
-    },
-    {
-      name: "Matcha Cantaloupe",
-      image: Image7,
-      price: 3000,
-      isSelected: false,
-    },
-    {
-      name: "Strawberry Popping",
-      image: Image8,
-      price: 3000,
-      isSelected: false,
-    },
-  ]);
+  const [allTopping, setAllTopping] = useState();
+  const [getProduct, setGetProduct] = useState();
+
+  const product = async () => {
+    try {
+      const response = await API.get(`/product/${productId}`);
+
+      // if (response.status === 404) {
+      // }
+      setGetProduct(response.data.data.products);
+      console.log(response.data.data.products);
+      // let payload = response.data.data.user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const topping = async () => {
+    try {
+      const response = await API.get("/toppings");
+
+      // if (response.status === 404) {
+      // }
+      setAllTopping(
+        response.data.data.allTopping.map((x) => ({
+          ...x,
+          isSelected: false,
+        }))
+      );
+      console.log(response.data.data.allTopping);
+      // let payload = response.data.data.user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    product();
+    topping();
+  }, []);
 
   const handleTopping = (value, index) => {
-    topping[index].isSelected = value;
-    setTopping([...topping]);
-    const total = topping
+    allTopping[index].isSelected = value;
+    setAllTopping([...allTopping]);
+    const total = allTopping
       .filter((x) => x.isSelected)
       .reduce((a, b) => {
         return a + b.price;
       }, 0);
     setTotalPrice(productPrice + total);
   };
+
+  if (!getProduct) return <div>Loading</div>;
+
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
         <Col className="d-flex justify-content-center">
-          <Image style={{ borderRadius: "0.5rem" }} src={Image1} />
+          <Image
+            style={{ borderRadius: "0.5rem" }}
+            src={`http://localhost:5000/uploads/${getProduct.image}`}
+          />
         </Col>
         <Col>
           <Row>
             <p className="fw-bold m-0" style={{ fontSize: "3rem" }}>
-              Ice Coffee Palm Sugar
+              {getProduct.title}
             </p>
           </Row>
           <Row className="mb-4">
-            <p className="fs-4">Rp. {productPrice}</p>
+            <p className="fs-4">Rp. {getProduct.price} </p>
           </Row>
           <Row>
             <p className="fw-bold fs-3">Topping</p>
           </Row>
-          <Row className="mb-3" style={{ fontSize: "0.9rem" }}>
-            {topping.map((item, index) => (
-              <Col
-                lg={3}
-                className="d-flex flex-column justify-content-center align-items-center text-center"
-              >
-                <button
-                  type="button"
-                  class="btn position-relative"
-                  onClick={() => handleTopping(!item.isSelected, index)}
+          {allTopping &&
+            allTopping.map((item, index) => (
+              <Row key={index} className="mb-3" style={{ fontSize: "0.9rem" }}>
+                <Col
+                  lg={3}
+                  className="d-flex flex-column justify-content-center align-items-center text-center"
                 >
-                  <Image style={{ borderRadius: "0.5rem" }} src={item.image} />
-                  <p>{item.name}</p>
-                  {item.isSelected && (
-                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
-                  )}
-                </button>
-              </Col>
+                  <button
+                    type="button"
+                    class="btn position-relative"
+                    onClick={() => handleTopping(!item.isSelected, index)}
+                  >
+                    <Image
+                      style={{ borderRadius: "0.5rem" }}
+                      src={`http://localhost:5000/uploads/${item.image}`}
+                    />
+                    <p>{item.title}</p>
+                    {item.isSelected && (
+                      <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+                    )}
+                  </button>
+                </Col>
+              </Row>
             ))}
-          </Row>
           <Row className="mb-5 fw-bold fs-3">
             <Col lg={6}>Total</Col>
             <Col lg={6} className="text-end">

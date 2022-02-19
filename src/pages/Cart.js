@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,8 +8,23 @@ import Image3 from "../image/invoices 1.png";
 
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
 import ModalPay from "../components/ModalPay";
+import { API } from "../config/api";
 
 export default function Cart() {
+  const [list, setList] = useState([
+    {
+      name: "Ice Coffe Palm Sugar",
+      topping: "Bill Berry Boba, Bubble Tea Gelatin",
+      price: 36000,
+      image: Image1,
+    },
+    {
+      name: "Ice Coffe Palm Sugar",
+      topping: "Bill Berry Boba, Manggo",
+      price: 36000,
+      image: Image1,
+    },
+  ]);
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
@@ -17,42 +32,27 @@ export default function Cart() {
           <Row className="fs-2 fw-bold mb-4">My Cart</Row>
           <Row className="fw-bold">Review Your Order</Row>
           <hr className="opacity-100" />
-          <Row className="mb-4">
-            <Col className="p-0">
-              <Image style={{ borderRadius: "0.5rem" }} src={Image1} />
-            </Col>
-            <Col lg={8} className="">
-              <p>Ice Coffe Palm Sugar</p>
-              <p>
-                <span className="fw-bold">Toping</span> : Bill Berry Boba,
-                Bubble Tea Gelatin
-              </p>
-            </Col>
-            <Col className="text-end p-0">
-              <p>Rp.33.000</p>
-              <Button className="p-0" variant="" type="submit">
-                <Image src={Image2} />
-              </Button>
-            </Col>
-          </Row>
-          <Row className="mb-5">
-            <Col className="p-0">
-              <Image style={{ borderRadius: "0.5rem" }} src={Image1} />
-            </Col>
-            <Col lg={8} className="">
-              <p>Ice Coffe Palm Sugar</p>
-              <p>
-                <span className="fw-bold">Toping</span> : Bill Berry Boba,
-                Manggo
-              </p>
-            </Col>
-            <Col className="text-end p-0">
-              <p>Rp.36.000</p>
-              <Button className="p-0" variant="" type="submit">
-                <Image src={Image2} />
-              </Button>
-            </Col>
-          </Row>
+          {list.map((item, index) => (
+            <Row key={index} className="mb-4">
+              <Col className="p-0">
+                <Image style={{ borderRadius: "0.5rem" }} src={item.image} />
+              </Col>
+              <Col lg={8} className="">
+                <p>{item.name}</p>
+                <p>
+                  <span className="fw-bold">Toping : </span>
+                  {item.topping}
+                </p>
+              </Col>
+              <Col className="text-end p-0 fw-bold">
+                <p>Rp. {item.price}</p>
+                <Button className="p-0" variant="" type="submit">
+                  <Image src={Image2} />
+                </Button>
+              </Col>
+            </Row>
+          ))}
+
           <hr className="opacity-100" />
           <Row>
             <Col lg={7}>

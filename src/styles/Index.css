@@ -17,3 +17,9 @@
   border: 0.18rem solid #bd0707 !important;
   color: #bd0707 !important;
 }
+
+@media (max-width: 991.98px) {
+  .p-5 {
+    padding: 0;
+  }
+}

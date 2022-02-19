@@ -1,6 +1,7 @@
-import { React, useState } from "react";
+import { useContext, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { UserContext } from "../Context/userContext";
+import { Link, useNavigate } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -20,30 +21,24 @@ import {
 } from "react-bootstrap";
 import ModalLogin from "../components/ModalLogin";
 import ModalRegister from "../components/ModalRegister";
+import { ModalContext } from "../Context/modalContext";
 
 const NavBar = () => {
-  const [isOpenModalLogin, setIsOpenModalLogin] = useState(false);
-  const [isOpenModalRegister, setIsOpenModalRegister] = useState(false);
-  const login = localStorage.getItem("login");
+  const [user, setUser] = useContext(UserContext);
+  const [, , toggle] = useContext(ModalContext);
 
-  const toggleModalLogin = () => {
-    setIsOpenModalLogin(!isOpenModalLogin);
-  };
-  const toggleModalRegister = () => {
-    setIsOpenModalRegister(!isOpenModalRegister);
-  };
   return (
     <>
       <div className="container p-0">
         <Navbar className="" expand="lg">
-          <Container className="p-0">
+          <Container className="">
             <Navbar.Brand>
               <Link to="/">
                 <Image src={Image1} />
               </Link>
             </Navbar.Brand>
             <div className="">
-              {login ? (
+              {user ? (
                 <>
                   <Link to="/cart">
                     <Button className="" variant="">
@@ -98,8 +93,9 @@ const NavBar = () => {
                             href="/"
                             className="fw-bold"
                             onClick={() => {
-                              localStorage.removeItem("login");
-                              window.location.reload();
+                              localStorage.removeItem("token");
+                              setUser(null);
+                              // window.location.reload();
                             }}
                           >
                             <Image src={Image4} className="me-3" />
@@ -112,16 +108,21 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <ModalLogin
-                    isOpen={isOpenModalLogin}
-                    toggle={toggleModalLogin}
-                    toggleRegister={toggleModalRegister}
-                  />
-                  <ModalRegister
-                    isOpen={isOpenModalRegister}
-                    toggle={toggleModalRegister}
-                    toggleLogin={toggleModalLogin}
-                  />
+                  <Button
+                    onClick={() => toggle("Login")}
+                    className="bg-btn-white me-3 fw-bold"
+                    variant=""
+                    size=""
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    onClick={() => toggle("Register")}
+                    className="bg-btn-red fw-bold"
+                    variant=""
+                  >
+                    Register
+                  </Button>
                 </>
               )}
             </div>

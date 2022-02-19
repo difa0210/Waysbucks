@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,10 +8,14 @@ import Image3 from "../image/logoProfile.png";
 import Image4 from "../image/barcode.png";
 
 import { Link } from "react-router-dom";
-
 import { Button, Image, Row, Col } from "react-bootstrap";
+import { UserContext } from "../Context/userContext";
 
 export default function Profile() {
+  const [user] = useContext(UserContext);
+  console.log(user);
+
+  if (!user) return <div>Loading</div>;
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
@@ -23,9 +27,9 @@ export default function Profile() {
             </Col>
             <Col lg={8} className="fs-5">
               <p className="fw-bold m-0">Full Name</p>
-              <p>Egi Ganteng</p>
+              <p>{user.name}</p>
               <p className="fw-bold m-0">Email</p>
-              <p>egigantengdikit@gmail.com</p>
+              <p>{user.email}</p>
             </Col>
           </Row>
         </Col>

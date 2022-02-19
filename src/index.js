@@ -3,10 +3,17 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { UserContextProvider } from "./Context/userContext";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ModalContextProvider } from "./Context/modalContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserContextProvider>
+      <ModalContextProvider>
+        <App />
+      </ModalContextProvider>
+    </UserContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

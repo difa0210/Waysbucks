@@ -8,7 +8,7 @@ import Image2 from "../image/done.png";
 import { Table } from "react-bootstrap";
 import ModalTransaction from "../components/ModalTransaction";
 
-export default function Admin() {
+export default function Transaction() {
   const [dataTable, setdataTable] = useState([
     {
       name: "Sugeng No Pants",
