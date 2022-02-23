@@ -1,21 +1,39 @@
-import { React, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Button, Modal, Row, Col, Image } from "react-bootstrap";
 import Image2 from "../image/transaction.png";
 import Image3 from "../image/logoProfile.png";
 import Image4 from "../image/barcode.png";
 import Image1 from "../image/done.png";
+import { API } from "../config/api";
+import convertRupiah from "rupiah-format";
+import { useParams } from "react-router-dom";
 
 export default function ModalTransaction() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [getTransaction, setGetTransaction] = useState();
+  // const id = useParams();
+  const idTransaction = async () => {
+    try {
+      const response = await API.get(`/transaction/:id`);
+      // setGetTransaction(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    idTransaction();
+  }, []);
 
   return (
     <>
       <Button onClick={handleShow} className="p-0 fw-bold" variant="">
-        <img src={Image1} alt="" />
+        {" "}
+        Link{" "}
       </Button>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Body

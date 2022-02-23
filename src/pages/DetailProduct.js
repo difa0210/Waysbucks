@@ -1,37 +1,25 @@
 import { React, useState, useEffect } from "react";
 
 import { Link, useParams } from "react-router-dom";
-
+import convertRupiah from "rupiah-format";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Image1 from "../image/Detail.png";
-import Image2 from "../image/Rectangle 9-1.png";
-import Image3 from "../image/Rectangle 9-2.png";
-import Image4 from "../image/Rectangle 9-3.png";
-import Image5 from "../image/Rectangle 9-4.png";
-import Image6 from "../image/Rectangle 9-5.png";
-import Image7 from "../image/Rectangle 9-6.png";
-import Image8 from "../image/Rectangle 9-7.png";
-import Image9 from "../image/Rectangle 9.png";
 import { API } from "../config/api";
 import { Button, Image, Row, Col } from "react-bootstrap";
 
 export default function DetailProducts() {
-  const { productId } = useParams();
-  const productPrice = 27000;
-  const [totalPrice, setTotalPrice] = useState(productPrice);
+  const { productsId } = useParams();
+  const [totalPrice, setTotalPrice] = useState();
   const [allTopping, setAllTopping] = useState();
   const [getProduct, setGetProduct] = useState();
+  const [toppings, setToppings] = useState();
 
   const product = async () => {
     try {
-      const response = await API.get(`/product/${productId}`);
+      const response = await API.get(`/product/${productsId}`);
 
-      // if (response.status === 404) {
-      // }
       setGetProduct(response.data.data.products);
       console.log(response.data.data.products);
-      // let payload = response.data.data.user;
     } catch (error) {
       console.log(error);
     }
@@ -41,8 +29,6 @@ export default function DetailProducts() {
     try {
       const response = await API.get("/toppings");
 
-      // if (response.status === 404) {
-      // }
       setAllTopping(
         response.data.data.allTopping.map((x) => ({
           ...x,
@@ -50,7 +36,6 @@ export default function DetailProducts() {
         }))
       );
       console.log(response.data.data.allTopping);
-      // let payload = response.data.data.user;
     } catch (error) {
       console.log(error);
     }
@@ -59,6 +44,7 @@ export default function DetailProducts() {
   useEffect(() => {
     product();
     topping();
+    // handleIdTopping();
   }, []);
 
   const handleTopping = (value, index) => {
@@ -69,7 +55,35 @@ export default function DetailProducts() {
       .reduce((a, b) => {
         return a + b.price;
       }, 0);
-    setTotalPrice(productPrice + total);
+    setTotalPrice(getProduct.price + total);
+  };
+
+  const handleBuy = async (e) => {
+    try {
+      e.preventDefault();
+
+      // Configuration
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      // Get data from product
+      const data = {
+        productId: getProduct.id,
+        toppingIds: allTopping.filter((x) => x.isSelected).map((x) => x.id),
+      };
+      console.log(data);
+      // Data body
+      const body = JSON.stringify(data);
+
+      // Insert transaction data
+      await API.post("/cart", body, config);
+      console.log(body);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (!getProduct) return <div>Loading</div>;
@@ -90,21 +104,23 @@ export default function DetailProducts() {
             </p>
           </Row>
           <Row className="mb-4">
-            <p className="fs-4">Rp. {getProduct.price} </p>
+            <p className="fs-4">{convertRupiah.convert(getProduct.price)} </p>
           </Row>
           <Row>
             <p className="fw-bold fs-3">Topping</p>
           </Row>
-          {allTopping &&
-            allTopping.map((item, index) => (
-              <Row key={index} className="mb-3" style={{ fontSize: "0.9rem" }}>
+
+          <Row className="mb-3" style={{ fontSize: "0.9rem" }}>
+            {allTopping &&
+              allTopping.map((item, index) => (
                 <Col
+                  key={index}
                   lg={3}
                   className="d-flex flex-column justify-content-center align-items-center text-center"
                 >
                   <button
                     type="button"
-                    class="btn position-relative"
+                    className="btn position-relative"
                     onClick={() => handleTopping(!item.isSelected, index)}
                   >
                     <Image
@@ -113,16 +129,17 @@ export default function DetailProducts() {
                     />
                     <p>{item.title}</p>
                     {item.isSelected && (
-                      <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+                      <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
                     )}
                   </button>
                 </Col>
-              </Row>
-            ))}
+              ))}
+          </Row>
+
           <Row className="mb-5 fw-bold fs-3">
             <Col lg={6}>Total</Col>
             <Col lg={6} className="text-end">
-              Rp. {totalPrice}
+              {convertRupiah.convert(totalPrice)}
             </Col>
           </Row>
           <Row>
@@ -131,6 +148,7 @@ export default function DetailProducts() {
                 <Button
                   className="container bg-btn-red fw-bold fs-5"
                   variant=""
+                  onClick={handleBuy}
                   type="submit"
                   style={{
                     borderRadius: "0.3rem",

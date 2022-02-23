@@ -46,11 +46,7 @@ export default function ModalLogin(props) {
       setMessage(error.response.data.message);
     }
   };
-  // const handleLogin = () => {
-  //   localStorage.setItem("login", "login");
-  //   props.toggle();
-  //   window.location.reload();
-  // };
+
   return (
     <Modal show={isOpen} onHide={() => toggle("Login")} centered>
       <Modal.Body>
@@ -114,8 +110,8 @@ export default function ModalLogin(props) {
                 style={{ cursor: "pointer" }}
                 className="text-decoration-none fw-bold text-black"
                 onClick={() => {
-                  props.toggleRegister();
-                  props.toggle();
+                  toggle("Login");
+                  toggle("Register");
                 }}
               >
                 Here

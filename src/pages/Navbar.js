@@ -19,14 +19,14 @@ import {
   Dropdown,
   InputGroup,
 } from "react-bootstrap";
-import ModalLogin from "../components/ModalLogin";
-import ModalRegister from "../components/ModalRegister";
+
 import { ModalContext } from "../Context/modalContext";
 
 const NavBar = () => {
-  const [user, setUser] = useContext(UserContext);
   const [, , toggle] = useContext(ModalContext);
-
+  const [user, setUser] = useContext(UserContext);
+  console.log(user);
+  // if (!user) return <div>Loading</div>;
   return (
     <>
       <div className="container p-0">
@@ -52,38 +52,56 @@ const NavBar = () => {
                           <Image src={Image2} />
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <Dropdown.Item
-                            style={{ color: "#BD0707" }}
-                            href="/products"
-                            className="mb-3 fw-bold"
-                          >
-                            <Image
-                              src={require("../image/product.png")}
-                              className="me-3"
-                            />
-                            Add Products
-                          </Dropdown.Item>
+                          {user.role === "admin" ? (
+                            <>
+                              <Dropdown.Item
+                                style={{ color: "#BD0707" }}
+                                href="/products"
+                                className="mb-3 fw-bold"
+                              >
+                                <Image
+                                  src={require("../image/product.png")}
+                                  className="me-3"
+                                />
+                                Add Products
+                              </Dropdown.Item>
 
-                          <Dropdown.Item
-                            style={{ color: "#BD0707" }}
-                            href="/topping"
-                            className="mb-3 fw-bold"
-                          >
-                            <Image
-                              src={require("../image/topping.png")}
-                              className="me-3"
-                            />
-                            Add Topping
-                          </Dropdown.Item>
+                              <Dropdown.Item
+                                style={{ color: "#BD0707" }}
+                                href="/topping"
+                                className="mb-3 fw-bold"
+                              >
+                                <Image
+                                  src={require("../image/topping.png")}
+                                  className="me-3"
+                                />
+                                Add Topping
+                              </Dropdown.Item>
 
-                          <Dropdown.Item
-                            style={{ color: "#BD0707" }}
-                            href="/profile"
-                            className="mb-3 fw-bold"
-                          >
-                            <Image src={Image3} className="me-3" />
-                            Profile
-                          </Dropdown.Item>
+                              <Dropdown.Item
+                                style={{ color: "#BD0707" }}
+                                href="/transaction"
+                                className="mb-3 fw-bold"
+                              >
+                                <Image
+                                  src={require("../image/topping.png")}
+                                  className="me-3"
+                                />
+                                Transactions
+                              </Dropdown.Item>
+                            </>
+                          ) : (
+                            <>
+                              <Dropdown.Item
+                                style={{ color: "#BD0707" }}
+                                href="/profile"
+                                className="mb-3 fw-bold"
+                              >
+                                <Image src={Image3} className="me-3" />
+                                Profile
+                              </Dropdown.Item>
+                            </>
+                          )}
                           <hr
                             style={{ color: "#BD0707" }}
                             className="opacity-100"

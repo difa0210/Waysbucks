@@ -25,7 +25,7 @@ export default function ModalRegister(props) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      props.toggle();
+      // props.toggle();
       // Configuration Content-type
       const config = {
         headers: {
@@ -38,12 +38,16 @@ export default function ModalRegister(props) {
 
       // Insert data user to database
       const response = await API.post("/register", body, config);
-
+      console.log(response.data.status);
       // Notification
 
-      if (response.data.status == "success") {
-        // localStorage.setItem("login", "login");
-        navigate(props.toggleLogin());
+      if (response.data.status === "success") {
+        const alert = (
+          <Alert variant="success" className="py-1 fw-bold">
+            Register Success
+          </Alert>
+        );
+        setMessage(alert);
       } else {
         const alert = (
           <Alert variant="danger" className="py-1 fw-bold">
@@ -79,6 +83,7 @@ export default function ModalRegister(props) {
           }}
         >
           <Form.Label className="fs-2 fw-bold mb-5">Register</Form.Label>
+          {message && message}
           <Form.Group
             className="mb-4"
             controlId="formBasicEmail"
@@ -146,15 +151,14 @@ export default function ModalRegister(props) {
                 style={{ cursor: "pointer" }}
                 className="text-decoration-none fw-bold text-black"
                 onClick={() => {
-                  props.toggleLogin();
-                  props.toggle();
+                  toggle("Login");
+                  toggle("Register");
                 }}
               >
                 Here
               </label>
             </span>
           </p>
-          {message && message}
         </Form>
       </Modal.Body>
     </Modal>

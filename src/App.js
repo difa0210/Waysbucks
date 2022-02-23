@@ -23,6 +23,7 @@ import ModalLogin from "./components/ModalLogin";
 import { API, setAuthToken } from "./config/api";
 import ModalRegister from "./components/ModalRegister";
 import UserRoute from "./components/UserRoute";
+import ModalTransaction from "./components/ModalTransaction";
 
 export default function App() {
   const [user, setUser] = useContext(UserContext);
@@ -32,10 +33,6 @@ export default function App() {
     try {
       setAuthToken(token);
       const response = await API.get("/check-auth");
-
-      if (response.status === 404) {
-      }
-
       let payload = response.data.data.user;
       setUser(payload);
     } catch (error) {
@@ -47,6 +44,8 @@ export default function App() {
     if (token) checkUser();
   }, []);
 
+  // if (!user) return <div>Loading</div>;
+
   return (
     <Router>
       <Navbar />
@@ -55,19 +54,68 @@ export default function App() {
         <Route exact path="/landingPage" element={<LandingPage />} />
         <Route
           exact
-          path="/detailProducts/:productId"
+          path="/detailProducts/:productsId"
           element={
             <UserRoute>
               <DetailProducts />
             </UserRoute>
           }
         />
-        <Route exact path="/products" element={<Products />} />
-        <Route exact path="/topping" element={<Topping />} />
-        <Route exact path="/cart" element={<Cart />} />
-        <Route exact path="/profile" element={<Profile />} />
-        <Route exact path="/transaction" element={<Transaction />} />
+        <Route
+          exact
+          path="/products"
+          element={
+            <UserRoute>
+              <Products />
+            </UserRoute>
+          }
+        />
+        <Route
+          exact
+          path="/topping"
+          element={
+            <UserRoute>
+              <Topping />
+            </UserRoute>
+          }
+        />
+        <Route
+          exact
+          path="/cart"
+          element={
+            <UserRoute>
+              <Cart />
+            </UserRoute>
+          }
+        />
+        <Route
+          exact
+          path="/profile"
+          element={
+            <UserRoute>
+              <Profile />
+            </UserRoute>
+          }
+        />
+        <Route
+          exact
+          path="/transaction"
+          element={
+            <UserRoute>
+              <Transaction />
+            </UserRoute>
+          }
+        />
         <Route exact path="/login" element={<ModalLogin />} />
+        <Route
+          exact
+          path="/modalTransaction"
+          element={
+            <UserRoute>
+              <ModalTransaction />
+            </UserRoute>
+          }
+        />
       </Routes>
       <ModalLogin />
       <ModalRegister />

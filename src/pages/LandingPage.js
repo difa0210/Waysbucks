@@ -3,14 +3,9 @@ import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../Context/userContext";
 
 import { useNavigate } from "react-router-dom";
-
+import convertRupiah from "rupiah-format";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ModalRegister from "../components/ModalRegister";
 import Image1 from "../image/Rectangle 3.png";
-import Img1 from "../image/1.png";
-import Img2 from "../image/2.png";
-import Img3 from "../image/3.png";
-import Img4 from "../image/4.png";
 import { Image, Row, Col, Card } from "react-bootstrap";
 import { ModalContext } from "../Context/modalContext";
 import { API } from "../config/api";
@@ -110,7 +105,7 @@ export default function LandingPage() {
                 />
                 <Card.Body>
                   <Card.Title className="fw-bold">{item.title}</Card.Title>
-                  <Card.Text>{item.price}</Card.Text>
+                  <Card.Text>{convertRupiah.convert(item.price)}</Card.Text>
                 </Card.Body>
               </Card>
             </Col>
