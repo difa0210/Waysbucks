@@ -1,21 +1,24 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Image1 from "../image/cancel.png";
 import Image2 from "../image/done.png";
 
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import ModalTransaction from "../components/ModalTransaction";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
 import { useParams, Link } from "react-router-dom";
+import { ModalContext } from "../Context/modalContext";
 
 export default function Transaction() {
   const { id } = useParams();
   const [getTransactions, setGetTransactions] = useState();
+  const [, , , toggle] = useContext(ModalContext);
 
   const transactions = async () => {
     try {
+      setAuthToken(localStorage.getItem("token"));
       const response = await API.get(`/transactions`);
       setGetTransactions(response.data.data.transaction);
       console.log(response.data.data.transaction);
@@ -27,7 +30,7 @@ export default function Transaction() {
     transactions();
   }, []);
 
-  //if (!getTransactions) return <div>Loading</div>;
+  if (!getTransactions) return <div>Loading</div>;
 
   return (
     <div className="container p-5">
@@ -57,13 +60,19 @@ export default function Transaction() {
                 <td>Cileungsi</td>
                 <td>16820</td>
                 <td>
-                  <ModalTransaction />
-                  {/* {item.order[0].id} */}
+                  {/* <ModalTransaction /> */}
+                  <Button
+                    onClick={() => toggle("Transaction")}
+                    style={{ color: "blue" }}
+                    variant=""
+                  >
+                    {item.order.map((x) => x.totalPrice)}
+                  </Button>
                 </td>
                 <td>{item.status}</td>
 
                 <td className="d-flex justify-content-center">
-                  {item.status == "success" ? (
+                  {item.status === "success" ? (
                     <img src={Image2} alt="" />
                   ) : (
                     <>

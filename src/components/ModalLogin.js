@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../Context/userContext";
-import { Button, Form, Modal, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+
+import { Button, Form, Modal } from "react-bootstrap";
+
 import { API } from "../config/api";
 import { ModalContext } from "../Context/modalContext";
 
-export default function ModalLogin(props) {
-  const [errors, setErrors] = useState(null);
-  const [isOpen, , toggle] = useContext(ModalContext);
+export default function ModalLogin() {
+  const [isOpen, , , toggle] = useContext(ModalContext);
 
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({

@@ -9,16 +9,16 @@ import Image4 from "../image/barcode.png";
 import { Link, useParams } from "react-router-dom";
 import { Button, Image, Row, Col } from "react-bootstrap";
 import { UserContext } from "../Context/userContext";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
 
 export default function Profile() {
   // const { myId } = useParams();
   const [getTransaction, setGetTransaction] = useState();
   const [user, setUser] = useContext(UserContext);
-  console.log(user);
 
   const myTransaction = async () => {
     try {
+      setAuthToken(localStorage.getItem("token"));
       const response = await API.get(`/carts`);
       setGetTransaction(response.data.data);
       console.log(response.data.data);
@@ -56,35 +56,31 @@ export default function Profile() {
           <Row className="mb-3 fw-bold fs-3">My Transaction</Row>
           <Row style={{ backgroundColor: "#F6DADA" }} className="p-4">
             <Col lg={9} className="">
-              <Row>
-                {getTransaction &&
-                  getTransaction.map((item, index) => (
-                    <>
-                      <Col key={index} lg={3} className="p-0 mb-4">
-                        <Image
-                          style={{ borderRadius: "0.2rem", width: "5rem" }}
-                          src={`http://localhost:5000/uploads/${item.product.image}`}
-                        />
-                      </Col>
-                      <Col className="" lg={9} style={{ fontSize: "0.8rem" }}>
-                        <p className="fs-5 fw-bold mb-2">
-                          {item.product.title}
-                        </p>
-                        <p className="mb-1">
-                          <span>Saturday</span>, 5 March 2020
-                        </p>
-                        <p className="mb-1">
-                          <span className="fw-bold">Topping :</span>
-                          {item.carttopping.map((x) => x.topping.title)}
-                        </p>
-                        <p className="">
-                          <span className="fw-bold">Price :</span>
-                          {convertRupiah.convert(item.product.price)}
-                        </p>
-                      </Col>
-                    </>
-                  ))}
-              </Row>
+              {getTransaction &&
+                getTransaction.map((item, index) => (
+                  <Row key={index}>
+                    <Col lg={3} className="p-0 mb-4">
+                      <Image
+                        style={{ borderRadius: "0.2rem", width: "5rem" }}
+                        src={`http://localhost:5000/uploads/${item.product.image}`}
+                      />
+                    </Col>
+                    <Col className="" lg={9} style={{ fontSize: "0.8rem" }}>
+                      <p className="fs-5 fw-bold mb-2">{item.product.title}</p>
+                      <p className="mb-1">
+                        <span>Saturday</span>, 5 March 2020
+                      </p>
+                      <p className="mb-1">
+                        <span className="fw-bold">Topping :</span>
+                        {item.carttopping.map((x) => x.topping.title)}
+                      </p>
+                      <p className="">
+                        <span className="fw-bold">Price :</span>
+                        {convertRupiah.convert(item.product.price)}
+                      </p>
+                    </Col>
+                  </Row>
+                ))}
             </Col>
             <Col lg={3}>
               <Col className="d-flex justify-content-center">

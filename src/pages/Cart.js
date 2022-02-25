@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import convertRupiah from "rupiah-format";
@@ -8,20 +8,28 @@ import Image3 from "../image/invoices 1.png";
 
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
 import ModalPay from "../components/ModalPay";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { UserContext } from "../Context/userContext";
 
 export default function Cart() {
   const id = useParams();
   const navigate = useNavigate();
-  const [confirmDelete, setConfirmDelete] = useState(null);
   const [cartId, setCartId] = useState();
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    posCode: "",
+    address: "",
+  });
 
   const getCart = async () => {
     try {
+      setAuthToken(localStorage.getItem("token"));
       const response = await API.get(`/carts`);
       setCartId(response.data.data);
+      console.log(response.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -30,34 +38,41 @@ export default function Cart() {
     getCart();
   }, []);
 
+  // const totalPrice = cartId
+  //   .map((x) => x.product.price)
+  //   .reduce((a, b) => {
+  //     return a + b.price;
+  //   }, 0);
+  const { name, phone, email, posCode, address } = form;
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleBuy = async (e) => {
     try {
       e.preventDefault();
 
-      // Configuration
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
 
-      // Get data from product
       const data = {
         transactionDetails: [
           {
-            productId: 14,
-            qty: 1,
-            toppingIds: cartId.map((x) => x.toppingIds),
+            cartId: cartId.map((x) => x.id),
           },
         ],
       };
       console.log(data);
-      // Data body
+
       const body = JSON.stringify(data);
 
-      // Insert transaction data
       await API.post("/transaction", body, config);
-      console.log(body);
     } catch (error) {
       console.log(error);
     }
@@ -72,22 +87,7 @@ export default function Cart() {
     }
   };
 
-  // const [list, setList] = useState([
-  //   {
-  //     name: "Ice Coffe Palm Sugar",
-  //     topping: "Bill Berry Boba, Bubble Tea Gelatin",
-  //     price: 36000,
-  //     image: Image1,
-  //   },
-  //   {
-  //     name: "Ice Coffe Palm Sugar",
-  //     topping: "Bill Berry Boba, Manggo",
-  //     price: 36000,
-  //     image: Image1,
-  //   },
-  // ]);
-
-  // if (!cartId) return <div>Loading</div>;
+  if (!cartId) return <div>Loading</div>;
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
@@ -150,7 +150,7 @@ export default function Cart() {
               <Row className="fw-bold">
                 <Col lg={6}>Total</Col>
                 <Col lg={6} className="text-end">
-                  Rp. 126.000
+                  Rp.
                 </Col>
               </Row>
             </Col>
@@ -177,7 +177,13 @@ export default function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="text" placeholder="Name" />
+              <Form.Control
+                type="text"
+                value={name}
+                name="name"
+                onChange={handleChange}
+                placeholder="Name"
+              />
             </Form.Group>
             <Form.Group
               className="mb-4"
@@ -187,7 +193,13 @@ export default function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="email" placeholder="Email" />
+              <Form.Control
+                type="email"
+                value={email}
+                name="email"
+                onChange={handleChange}
+                placeholder="Email"
+              />
             </Form.Group>
 
             <Form.Group
@@ -198,7 +210,13 @@ export default function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="number" placeholder="Phone" />
+              <Form.Control
+                type="number"
+                value={phone}
+                name="phone"
+                onChange={handleChange}
+                placeholder="Phone"
+              />
             </Form.Group>
 
             <Form.Group
@@ -209,7 +227,13 @@ export default function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control type="number" placeholder="Pos Code" />
+              <Form.Control
+                type="number"
+                value={posCode}
+                name="posCode"
+                onChange={handleChange}
+                placeholder="Pos Code"
+              />
             </Form.Group>
 
             <Form.Group
@@ -220,7 +244,13 @@ export default function Cart() {
                 border: "1px solid #BD0707",
               }}
             >
-              <Form.Control as="textarea" placeholder="Address" />
+              <Form.Control
+                as="textarea"
+                value={address}
+                name="address"
+                onChange={handleChange}
+                placeholder="Address"
+              />
             </Form.Group>
             <Link to={<ModalPay />}>
               <Button

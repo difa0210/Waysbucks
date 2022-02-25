@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import convertRupiah from "rupiah-format";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,11 +8,11 @@ import { API } from "../config/api";
 import { Button, Image, Row, Col } from "react-bootstrap";
 
 export default function DetailProducts() {
+  const navigate = useNavigate();
   const { productsId } = useParams();
-  const [totalPrice, setTotalPrice] = useState();
   const [allTopping, setAllTopping] = useState();
   const [getProduct, setGetProduct] = useState();
-  const [toppings, setToppings] = useState();
+  const [totalPrice, setTotalPrice] = useState();
 
   const product = async () => {
     try {

@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { UserContext } from "../Context/userContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -23,9 +23,9 @@ import {
 import { ModalContext } from "../Context/modalContext";
 
 const NavBar = () => {
-  const [, , toggle] = useContext(ModalContext);
+  const [, , , toggle] = useContext(ModalContext);
   const [user, setUser] = useContext(UserContext);
-  console.log(user);
+
   // if (!user) return <div>Loading</div>;
   return (
     <>
@@ -130,7 +130,6 @@ const NavBar = () => {
                     onClick={() => toggle("Login")}
                     className="bg-btn-white me-3 fw-bold"
                     variant=""
-                    size=""
                   >
                     Login
                   </Button>

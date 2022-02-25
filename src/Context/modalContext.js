@@ -5,6 +5,7 @@ export const ModalContext = createContext();
 export const ModalContextProvider = ({ children }) => {
   const [modalRegister, setModalRegister] = useState(false);
   const [modalLogin, setModalLogin] = useState(false);
+  const [modalTransaction, setModalTransaction] = useState(false);
 
   const toggle = (name) => {
     console.log(name);
@@ -12,10 +13,14 @@ export const ModalContextProvider = ({ children }) => {
       setModalLogin(!modalLogin);
     } else if (name === "Register") {
       setModalRegister(!modalRegister);
+    } else if (name === "Transaction") {
+      setModalTransaction(!modalTransaction);
     }
   };
   return (
-    <ModalContext.Provider value={[modalLogin, modalRegister, toggle]}>
+    <ModalContext.Provider
+      value={[modalLogin, modalRegister, modalTransaction, toggle]}
+    >
       {children}
     </ModalContext.Provider>
   );

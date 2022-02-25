@@ -1,12 +1,7 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 import { UserContext } from "./Context/userContext";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -107,18 +102,11 @@ export default function App() {
           }
         />
         <Route exact path="/login" element={<ModalLogin />} />
-        <Route
-          exact
-          path="/modalTransaction"
-          element={
-            <UserRoute>
-              <ModalTransaction />
-            </UserRoute>
-          }
-        />
+        <Route exact path="/modaltransaction" element={<ModalTransaction />} />
       </Routes>
       <ModalLogin />
       <ModalRegister />
+      <ModalTransaction />
     </Router>
   );
 }
