@@ -12,7 +12,7 @@ export default function DetailProducts() {
   const { productsId } = useParams();
   const [allTopping, setAllTopping] = useState();
   const [getProduct, setGetProduct] = useState();
-  const [totalPrice, setTotalPrice] = useState();
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const product = async () => {
     try {
@@ -20,6 +20,7 @@ export default function DetailProducts() {
 
       setGetProduct(response.data.data.products);
       console.log(response.data.data.products);
+      setTotalPrice(response.data.data.products.price);
     } catch (error) {
       console.log(error);
     }

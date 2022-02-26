@@ -19,6 +19,7 @@ import { API, setAuthToken } from "./config/api";
 import ModalRegister from "./components/ModalRegister";
 import UserRoute from "./components/UserRoute";
 import ModalTransaction from "./components/ModalTransaction";
+import ModalPay from "./components/ModalPay";
 
 export default function App() {
   const [user, setUser] = useContext(UserContext);
@@ -101,20 +102,11 @@ export default function App() {
             </UserRoute>
           }
         />
-        <Route exact path="/login" element={<ModalLogin />} />
-        <Route exact path="/modaltransaction" element={<ModalTransaction />} />
       </Routes>
       <ModalLogin />
       <ModalRegister />
       <ModalTransaction />
+      <ModalPay />
     </Router>
   );
 }
-
-// export default function App() {
-//   return (
-//     <Router>
-//       <Root />
-//     </Router>
-//   );
-// }

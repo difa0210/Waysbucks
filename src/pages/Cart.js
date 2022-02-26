@@ -1,11 +1,10 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useContext } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import convertRupiah from "rupiah-format";
-
 import Image2 from "../image/trash.png";
 import Image3 from "../image/invoices 1.png";
-
+import { ModalContext } from "../Context/modalContext";
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
 import ModalPay from "../components/ModalPay";
 import { API, setAuthToken } from "../config/api";
@@ -14,8 +13,8 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 export default function Cart() {
   const id = useParams();
   const navigate = useNavigate();
-  const [cartId, setCartId] = useState();
-  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [, , , , toggle] = useContext(ModalContext);
+  const [carts, setCarts] = useState();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -28,7 +27,7 @@ export default function Cart() {
     try {
       setAuthToken(localStorage.getItem("token"));
       const response = await API.get(`/carts`);
-      setCartId(response.data.data);
+      setCarts(response.data.data);
       console.log(response.data.data);
     } catch (error) {
       console.log(error);
@@ -38,11 +37,6 @@ export default function Cart() {
     getCart();
   }, []);
 
-  // const totalPrice = cartId
-  //   .map((x) => x.product.price)
-  //   .reduce((a, b) => {
-  //     return a + b.price;
-  //   }, 0);
   const { name, phone, email, posCode, address } = form;
   const handleChange = (e) => {
     setForm({
@@ -62,32 +56,37 @@ export default function Cart() {
       };
 
       const data = {
-        transactionDetails: [
-          {
-            cartId: cartId.map((x) => x.id),
-          },
-        ],
+        cartIds: carts.map((x) => x.id),
+        name,
+        email,
+        phone,
+        posCode,
+        address,
       };
       console.log(data);
 
       const body = JSON.stringify(data);
 
-      await API.post("/transaction", body, config);
+      const response = await API.post("/transaction", body, config);
+      console.log(response);
+      await getCart();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleDelete = async (e) => {
+  const handleDelete = async (e, id) => {
     try {
       e.preventDefault();
-      await API.delete(`/cart/:id`);
+
+      await API.delete(`/cart/${id}`);
+      await getCart();
     } catch (error) {
       console.log(error);
     }
   };
 
-  if (!cartId) return <div>Loading</div>;
+  if (!carts) return <div>Loading</div>;
   return (
     <div className="container p-5">
       <Row style={{ color: "#BD0707" }}>
@@ -95,8 +94,8 @@ export default function Cart() {
           <Row className="fs-2 fw-bold mb-4">My Cart</Row>
           <Row className="fw-bold">Review Your Order</Row>
           <hr className="opacity-100" />
-          {cartId &&
-            cartId.map((item, index) => (
+          {carts &&
+            carts.map((item, index) => (
               <Row key={index} className="mb-4">
                 <Col className="p-0">
                   <Image
@@ -118,7 +117,7 @@ export default function Cart() {
                     className="p-0"
                     variant=""
                     type="submit"
-                    onClick={handleDelete}
+                    onClick={(e) => handleDelete(e, item.id)}
                   >
                     <Image src={Image2} />
                   </Button>
@@ -130,27 +129,25 @@ export default function Cart() {
           <Row>
             <Col lg={7}>
               <hr className="opacity-100" />
-              <Row className="mb-3">
-                <Col lg={6} className="fw-bold">
-                  Subtotal
-                </Col>
-                <Col lg={6} className="text-end">
-                  Rp. 63.000
-                </Col>
-              </Row>
+
               <Row className="">
                 <Col lg={6} className="fw-bold">
                   Qty.
                 </Col>
                 <Col lg={6} className="text-end">
-                  2
+                  {carts.length}
                 </Col>
               </Row>
               <hr className="opacity-100" />
               <Row className="fw-bold">
                 <Col lg={6}>Total</Col>
                 <Col lg={6} className="text-end">
-                  Rp.
+                  Rp.{" "}
+                  {/* {convertRupiah.convert(
+                        item.order.reduce((a, b) => {
+                          return a + b.totalPrice;
+                        }, 0)
+                      )} */}
                 </Col>
               </Row>
             </Col>
@@ -167,6 +164,7 @@ export default function Cart() {
             </Col>
           </Row>
         </Col>
+
         <Col lg={5} className="p-5">
           <Form>
             <Form.Group
@@ -252,19 +250,18 @@ export default function Cart() {
                 placeholder="Address"
               />
             </Form.Group>
-            <Link to={<ModalPay />}>
-              <Button
-                className="container bg-btn-red fw-bold fs-5 mb-4"
-                variant=""
-                onClick={handleBuy}
-                type="submit"
-                style={{
-                  borderRadius: "0.3rem",
-                }}
-              >
-                Pay
-              </Button>
-            </Link>
+
+            <Button
+              className="container bg-btn-red fw-bold fs-5 mb-4"
+              variant=""
+              onClick={handleBuy}
+              type="submit"
+              style={{
+                borderRadius: "0.3rem",
+              }}
+            >
+              Pay
+            </Button>
           </Form>
         </Col>
       </Row>

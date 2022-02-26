@@ -6,20 +6,32 @@ export const ModalContextProvider = ({ children }) => {
   const [modalRegister, setModalRegister] = useState(false);
   const [modalLogin, setModalLogin] = useState(false);
   const [modalTransaction, setModalTransaction] = useState(false);
+  const [modalPay, setModalPay] = useState(false);
+  const [transactionId, setTransactionId] = useState(false);
 
-  const toggle = (name) => {
-    console.log(name);
+  const toggle = (name, id) => {
+    console.log(name, id);
     if (name === "Login") {
       setModalLogin(!modalLogin);
     } else if (name === "Register") {
       setModalRegister(!modalRegister);
     } else if (name === "Transaction") {
       setModalTransaction(!modalTransaction);
+      setTransactionId(id);
+    } else if (name === "Pay") {
+      setModalPay(!modalPay);
     }
   };
   return (
     <ModalContext.Provider
-      value={[modalLogin, modalRegister, modalTransaction, toggle]}
+      value={[
+        modalLogin,
+        modalRegister,
+        modalTransaction,
+        modalPay,
+        toggle,
+        transactionId,
+      ]}
     >
       {children}
     </ModalContext.Provider>

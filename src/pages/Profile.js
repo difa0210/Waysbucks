@@ -13,15 +13,15 @@ import { API, setAuthToken } from "../config/api";
 
 export default function Profile() {
   // const { myId } = useParams();
-  const [getTransaction, setGetTransaction] = useState();
+  const [getTransaction, setGetTransaction] = useState([]);
   const [user, setUser] = useContext(UserContext);
 
   const myTransaction = async () => {
     try {
       setAuthToken(localStorage.getItem("token"));
-      const response = await API.get(`/carts`);
-      setGetTransaction(response.data.data);
-      console.log(response.data.data);
+      const response = await API.get(`/my-transactions`);
+      setGetTransaction(response.data.data.transaction);
+      console.log(response.data.data.transaction);
     } catch (error) {
       console.log(error);
     }
@@ -54,54 +54,59 @@ export default function Profile() {
 
         <Col lg={6} className="">
           <Row className="mb-3 fw-bold fs-3">My Transaction</Row>
-          <Row style={{ backgroundColor: "#F6DADA" }} className="p-4">
-            <Col lg={9} className="">
-              {getTransaction &&
-                getTransaction.map((item, index) => (
-                  <Row key={index}>
+          {/* getTransaction.length > 0 */}
+          {getTransaction.length &&
+            getTransaction.map((item, index) => (
+              <Row
+                key={index}
+                style={{ backgroundColor: "#F6DADA" }}
+                className="p-4"
+              >
+                <Col lg={9} className="">
+                  <Row>
                     <Col lg={3} className="p-0 mb-4">
                       <Image
                         style={{ borderRadius: "0.2rem", width: "5rem" }}
-                        src={`http://localhost:5000/uploads/${item.product.image}`}
+                        src={`http://localhost:5000/uploads/${item.order[0].image}`}
                       />
                     </Col>
                     <Col className="" lg={9} style={{ fontSize: "0.8rem" }}>
-                      <p className="fs-5 fw-bold mb-2">{item.product.title}</p>
+                      <p className="fs-5 fw-bold mb-2">{item.order[0].title}</p>
                       <p className="mb-1">
                         <span>Saturday</span>, 5 March 2020
                       </p>
                       <p className="mb-1">
-                        <span className="fw-bold">Topping :</span>
-                        {item.carttopping.map((x) => x.topping.title)}
+                        <span className="fw-bold">Topping : </span>
+                        {item.order[0].topping.map((xx) => xx.title)}
                       </p>
                       <p className="">
-                        <span className="fw-bold">Price :</span>
-                        {convertRupiah.convert(item.product.price)}
+                        <span className="fw-bold">Price : </span>
+                        {convertRupiah.convert(item.order[0].price)}
                       </p>
                     </Col>
                   </Row>
-                ))}
-            </Col>
-            <Col lg={3}>
-              <Col className="d-flex justify-content-center">
-                <Image className="mb-3" src={Image3} />
-              </Col>
-              <Col className="d-flex justify-content-center">
-                <Image className="mb-3" src={Image4} />
-              </Col>
-              <Col className="fw-bold d-flex flex-column justify-content-center text-center">
-                <Button
-                  className="mb-2"
-                  style={{ fontSize: "0.8rem" }}
-                  as="input"
-                  type="submit"
-                  value="On The Way"
-                />
+                </Col>
+                <Col lg={3}>
+                  <Col className="d-flex justify-content-center">
+                    <Image className="mb-3" src={Image3} />
+                  </Col>
+                  <Col className="d-flex justify-content-center">
+                    <Image className="mb-3" src={Image4} />
+                  </Col>
+                  <Col className="fw-bold d-flex flex-column justify-content-center text-center">
+                    <Button
+                      className="mb-2"
+                      style={{ fontSize: "0.8rem" }}
+                      as="input"
+                      type="submit"
+                      value="On The Way"
+                    />
 
-                <p style={{ fontSize: "0.8rem" }}>Sub Total : 69.000</p>
-              </Col>
-            </Col>
-          </Row>
+                    <p style={{ fontSize: "0.8rem" }}>Sub Total : 69.000</p>
+                  </Col>
+                </Col>
+              </Row>
+            ))}
         </Col>
       </Row>
     </div>

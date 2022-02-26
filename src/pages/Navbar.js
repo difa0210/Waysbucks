@@ -23,7 +23,7 @@ import {
 import { ModalContext } from "../Context/modalContext";
 
 const NavBar = () => {
-  const [, , , toggle] = useContext(ModalContext);
+  const [, , , , toggle] = useContext(ModalContext);
   const [user, setUser] = useContext(UserContext);
 
   // if (!user) return <div>Loading</div>;

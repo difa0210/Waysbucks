@@ -4,17 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Image1 from "../image/cancel.png";
 import Image2 from "../image/done.png";
-
+import convertRupiah from "rupiah-format";
 import { Table, Button } from "react-bootstrap";
-import ModalTransaction from "../components/ModalTransaction";
 import { API, setAuthToken } from "../config/api";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ModalContext } from "../Context/modalContext";
 
 export default function Transaction() {
-  const { id } = useParams();
+  const navigate = useNavigate();
   const [getTransactions, setGetTransactions] = useState();
-  const [, , , toggle] = useContext(ModalContext);
+  const [, , , , toggle] = useContext(ModalContext);
 
   const transactions = async () => {
     try {
@@ -56,17 +55,24 @@ export default function Transaction() {
             getTransactions.map((item, index) => (
               <tr key={index} className="text-center">
                 <td>{index + 1}</td>
-                <td>{item.userOrder.fullName}</td>
-                <td>Cileungsi</td>
-                <td>16820</td>
+                <td>{item.name}</td>
+                <td>{item.address}</td>
+                <td>{item.posCode}</td>
                 <td>
                   {/* <ModalTransaction /> */}
                   <Button
-                    onClick={() => toggle("Transaction")}
+                    onClick={() => {
+                      toggle("Transaction", item.Id);
+                      // navigate(`/transaction/${item.id}`);
+                    }}
                     style={{ color: "blue" }}
                     variant=""
                   >
-                    {item.order.map((x) => x.totalPrice)}
+                    {convertRupiah.convert(
+                      item.order.reduce((a, b) => {
+                        return a + b.totalPrice;
+                      }, 0)
+                    )}
                   </Button>
                 </td>
                 <td>{item.status}</td>

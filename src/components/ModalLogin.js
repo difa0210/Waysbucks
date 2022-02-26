@@ -6,7 +6,7 @@ import { API } from "../config/api";
 import { ModalContext } from "../Context/modalContext";
 
 export default function ModalLogin() {
-  const [isOpen, , , toggle] = useContext(ModalContext);
+  const [isOpen, , , , toggle] = useContext(ModalContext);
 
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({

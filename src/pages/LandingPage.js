@@ -13,7 +13,7 @@ import { API } from "../config/api";
 export default function LandingPage() {
   const navigate = useNavigate();
   const [user] = useContext(UserContext);
-  const [, , toggle] = useContext(ModalContext);
+  const [, , , , toggle] = useContext(ModalContext);
   const [allProduct, setAllProduct] = useState();
 
   const product = async () => {
