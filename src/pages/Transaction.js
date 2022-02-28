@@ -30,7 +30,7 @@ export default function Transaction() {
   }, []);
 
   if (!getTransactions) return <div>Loading</div>;
-
+  console.log(getTransactions.map((x) => x.Id));
   return (
     <div className="container p-5">
       <p className="fw-bold fs-2 mb-4" style={{ color: "#BD0707" }}>
@@ -78,7 +78,7 @@ export default function Transaction() {
                 <td>{item.status}</td>
 
                 <td className="d-flex justify-content-center">
-                  {item.status === "success" ? (
+                  {item.status === "Success" ? (
                     <img src={Image2} alt="" />
                   ) : (
                     <>

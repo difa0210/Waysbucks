@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 import { Button, Modal, Row, Col, Image } from "react-bootstrap";
-import Image2 from "../image/transaction.png";
+
 import Image3 from "../image/logoProfile.png";
 import Image4 from "../image/barcode.png";
 import Image1 from "../image/done.png";
@@ -17,7 +17,7 @@ export default function ModalTransaction() {
   const idTransaction = async () => {
     console.log(transactionId);
     try {
-      // setAuthToken(localStorage.getItem("token"));
+      setAuthToken(localStorage.getItem("token"));
       const response = await API.get(`/transaction/${transactionId}`);
       console.log(response.data.data.transactionDetail);
       setGetTransaction(response.data.data.transactionDetail);
@@ -85,11 +85,12 @@ export default function ModalTransaction() {
               />
               <p style={{ fontSize: "0.8rem" }}>Sub Total : </p>
               <p className="fw-bold" style={{ fontSize: "0.8rem" }}>
-                {/* {convertRupiah.convert(
-                  getTransaction.reduce((a, b) => {
-                    return a + b.price;
-                  }, 0)
-                )}{" "} */}
+                {convertRupiah.convert(
+                  getTransaction &&
+                    getTransaction.reduce((a, b) => {
+                      return a + b.price;
+                    }, 0)
+                )}
               </p>
             </Col>
           </Col>

@@ -45,7 +45,6 @@ export default function DetailProducts() {
   useEffect(() => {
     product();
     topping();
-    // handleIdTopping();
   }, []);
 
   const handleTopping = (value, index) => {

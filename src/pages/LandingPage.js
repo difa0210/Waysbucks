@@ -20,11 +20,8 @@ export default function LandingPage() {
     try {
       const response = await API.get("/products");
 
-      // if (response.status === 404) {
-      // }
       setAllProduct(response.data.data.allProducts);
       console.log(response.data.data.allProducts);
-      // let payload = response.data.data.user;
     } catch (error) {
       console.log(error);
     }
@@ -33,9 +30,6 @@ export default function LandingPage() {
   useEffect(() => {
     product();
   }, []);
-  // const toggleModalRegister = () => {
-  //   setIsOpenModalRegister(!isOpenModalRegister);
-  // };
 
   return (
     <div className="container p-5">
