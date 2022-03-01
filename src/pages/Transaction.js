@@ -1,17 +1,13 @@
 import { React, useState, useEffect, useContext } from "react";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import Image1 from "../image/cancel.png";
 import Image2 from "../image/done.png";
 import convertRupiah from "rupiah-format";
 import { Table, Button } from "react-bootstrap";
 import { API, setAuthToken } from "../config/api";
-import { useParams, Link, useNavigate } from "react-router-dom";
 import { ModalContext } from "../Context/modalContext";
 
 export default function Transaction() {
-  const navigate = useNavigate();
   const [getTransactions, setGetTransactions] = useState();
   const [, , , , toggle] = useContext(ModalContext);
 
@@ -30,7 +26,7 @@ export default function Transaction() {
   }, []);
 
   if (!getTransactions) return <div>Loading</div>;
-  console.log(getTransactions.map((x) => x.Id));
+
   return (
     <div className="container p-5">
       <p className="fw-bold fs-2 mb-4" style={{ color: "#BD0707" }}>
@@ -59,11 +55,9 @@ export default function Transaction() {
                 <td>{item.address}</td>
                 <td>{item.posCode}</td>
                 <td>
-                  {/* <ModalTransaction /> */}
                   <Button
                     onClick={() => {
                       toggle("Transaction", item.Id);
-                      // navigate(`/transaction/${item.id}`);
                     }}
                     style={{ color: "blue" }}
                     variant=""
@@ -82,7 +76,11 @@ export default function Transaction() {
                     <img src={Image2} alt="" />
                   ) : (
                     <>
-                      <button type="button" className="btn btn-success mx-2">
+                      <button
+                        onClick={<img src={Image2} alt="" />}
+                        type="button"
+                        className="btn btn-success mx-2"
+                      >
                         Approve
                       </button>
                       <button type="button" className="btn btn-danger mx-2">

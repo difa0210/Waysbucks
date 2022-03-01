@@ -40,8 +40,6 @@ export default function App() {
     if (token) checkUser();
   }, []);
 
-  // if (!user) return <div>Loading</div>;
-
   return (
     <Router>
       <Navbar />

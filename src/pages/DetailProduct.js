@@ -1,14 +1,11 @@
 import { React, useState, useEffect } from "react";
-
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import convertRupiah from "rupiah-format";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import { API } from "../config/api";
 import { Button, Image, Row, Col } from "react-bootstrap";
 
 export default function DetailProducts() {
-  const navigate = useNavigate();
   const { productsId } = useParams();
   const [allTopping, setAllTopping] = useState();
   const [getProduct, setGetProduct] = useState();
@@ -62,23 +59,20 @@ export default function DetailProducts() {
     try {
       e.preventDefault();
 
-      // Configuration
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
 
-      // Get data from product
       const data = {
         productId: getProduct.id,
         toppingIds: allTopping.filter((x) => x.isSelected).map((x) => x.id),
       };
       console.log(data);
-      // Data body
+
       const body = JSON.stringify(data);
 
-      // Insert transaction data
       await API.post("/cart", body, config);
       console.log(body);
     } catch (error) {

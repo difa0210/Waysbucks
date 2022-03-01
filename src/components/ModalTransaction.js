@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-
 import { Button, Modal, Row, Col, Image } from "react-bootstrap";
-
+import date from "date-and-time";
 import Image3 from "../image/logoProfile.png";
 import Image4 from "../image/barcode.png";
 import Image1 from "../image/done.png";
@@ -52,7 +51,7 @@ export default function ModalTransaction() {
                   <Col className="" style={{ fontSize: "0.8rem" }}>
                     <p className="fs-5 fw-bold mb-2">{item.product.title}</p>
                     <p className="mb-1">
-                      <span>Saturday</span>, 5 March 2020
+                      {item.transactionDetailTopping.map((x) => x.createdAt)}
                     </p>
                     <p className="mb-1">
                       <span className="fw-bold">Topping : </span>

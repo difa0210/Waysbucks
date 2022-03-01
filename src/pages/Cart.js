@@ -1,17 +1,12 @@
-import { React, useEffect, useState, useContext } from "react";
-
+import { React, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import convertRupiah from "rupiah-format";
 import Image2 from "../image/trash.png";
 import Image3 from "../image/invoices 1.png";
-import { ModalContext } from "../Context/modalContext";
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
-import ModalPay from "../components/ModalPay";
 import { API, setAuthToken } from "../config/api";
-import { useNavigate, useParams, Link } from "react-router-dom";
 
 export default function Cart() {
-  const [totalPrice, setTotalPrice] = useState();
   const [carts, setCarts] = useState();
   const [form, setForm] = useState({
     name: "",
@@ -110,16 +105,7 @@ export default function Cart() {
                   </p>
                 </Col>
                 <Col className="text-end p-0 fw-bold">
-                  <p>{convertRupiah.convert(item.product.price)}</p>{" "}
-                  {/* <p>
-                    {convertRupiah.convert(
-                      item.carttopping.map((xx) =>
-                        xx.topping.reduce((a, b) => {
-                          return a + b.price;
-                        }, 0)
-                      )
-                    )}
-                  </p> */}
+                  <p>{convertRupiah.convert(item.price)}</p>{" "}
                   <Button
                     className="p-0"
                     variant=""
@@ -149,16 +135,12 @@ export default function Cart() {
               <Row className="fw-bold">
                 <Col lg={6}>Total</Col>
                 <Col lg={6} className="text-end">
-                  <div>
-                    {convertRupiah.convert(carts.map((x) => x.product.price))}
-                  </div>
-                  <div>
-                    {convertRupiah.convert(
-                      carts.map((x) =>
-                        x.carttopping.map((xx) => xx.topping.price)
-                      )
-                    )}
-                  </div>
+                  {convertRupiah.convert(
+                    carts &&
+                      carts.reduce((a, b) => {
+                        return a + b.price;
+                      }, 0)
+                  )}
                 </Col>
               </Row>
             </Col>

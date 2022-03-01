@@ -24,18 +24,15 @@ export default function ModalRegister() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      // props.toggle();
-      // Configuration Content-type
+
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
 
-      // Data body
       const body = JSON.stringify(form);
 
-      // Insert data user to database
       const response = await API.post("/register", body, config);
       console.log(response.data.status);
       // Notification
@@ -65,11 +62,6 @@ export default function ModalRegister() {
       console.log(error);
     }
   };
-  // const handleLogin = () => {
-  //   localStorage.setItem("login", "login");
-  //   props.toggle();
-  //   window.location.reload();
-  // };
 
   return (
     <Modal show={isOpen} onHide={() => toggle("Register")} centered>

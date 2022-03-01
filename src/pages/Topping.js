@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Image1 from "../image/Rectangle 4.png";
 import { Form, Button, Image, Row, Col, Alert } from "react-bootstrap";
 import { API } from "../config/api";
 
 export default function Topping() {
-  let navigate = useNavigate();
   const [message, setMessage] = useState();
   const [preview, setPreview] = useState(null); //For image preview
   const [form, setForm] = useState({

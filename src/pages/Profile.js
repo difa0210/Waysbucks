@@ -6,7 +6,6 @@ import Image1 from "../image/Mask Group.png";
 import Image3 from "../image/logoProfile.png";
 import Image4 from "../image/barcode.png";
 
-import { Link, useParams } from "react-router-dom";
 import { Button, Image, Row, Col } from "react-bootstrap";
 import { UserContext } from "../Context/userContext";
 import { API, setAuthToken } from "../config/api";

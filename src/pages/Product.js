@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-import Image1 from "../image/Detail.png";
-// import Image2 from "../image/cart.png";
-
+import React, { useState } from "react";
 import { Form, Button, Image, Row, Col, Alert } from "react-bootstrap";
 import { API } from "../config/api";
 

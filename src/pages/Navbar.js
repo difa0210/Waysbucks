@@ -1,16 +1,13 @@
-import { useContext } from "react";
-
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../Context/userContext";
 import { Link } from "react-router-dom";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import Image1 from "../image/Group.png";
 import Image2 from "../image/User.png";
 import Image3 from "../image/user 2.png";
 import Image4 from "../image/logout.png";
 import Image5 from "../image/cart.png";
-
+import { API, setAuthToken } from "../config/api";
 import {
   Navbar,
   Container,
@@ -25,8 +22,22 @@ import { ModalContext } from "../Context/modalContext";
 const NavBar = () => {
   const [, , , , toggle] = useContext(ModalContext);
   const [user, setUser] = useContext(UserContext);
+  const [carts, setCarts] = useState();
 
-  // if (!user) return <div>Loading</div>;
+  const getCart = async () => {
+    try {
+      setAuthToken(localStorage.getItem("token"));
+      const response = await API.get(`/carts`);
+      setCarts(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getCart();
+  }, []);
+
   return (
     <>
       <div className="container p-0">
@@ -41,9 +52,16 @@ const NavBar = () => {
               {user ? (
                 <>
                   <Link to="/cart">
-                    <Button className="" variant="">
-                      <Image src={Image5} />
-                    </Button>
+                    {carts.length == 0 ? (
+                      <Button className="btn position-relative" variant="">
+                        <Image src={Image5} />
+                      </Button>
+                    ) : (
+                      <Button className="btn position-relative" variant="">
+                        <Image src={Image5} />
+                        <span className="position-absolute top-0 start-80 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+                      </Button>
+                    )}
                   </Link>
                   <Button className="" variant="">
                     <InputGroup className="mb-3">
@@ -113,7 +131,6 @@ const NavBar = () => {
                             onClick={() => {
                               localStorage.removeItem("token");
                               setUser(null);
-                              // window.location.reload();
                             }}
                           >
                             <Image src={Image4} className="me-3" />
