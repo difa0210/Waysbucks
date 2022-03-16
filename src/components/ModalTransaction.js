@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Modal, Row, Col, Image } from "react-bootstrap";
-import date from "date-and-time";
 import Image3 from "../image/logoProfile.png";
 import Image4 from "../image/barcode.png";
 import Image1 from "../image/done.png";
 import { API, setAuthToken } from "../config/api";
 import convertRupiah from "rupiah-format";
-import { useParams } from "react-router-dom";
 import { ModalContext } from "../Context/modalContext";
+import Moment from "moment";
 
 export default function ModalTransaction() {
   const [, , isOpen, , toggle, transactionId] = useContext(ModalContext);
   const [getTransaction, setGetTransaction] = useState();
+  const [getStatus, setGetStatus] = useState();
 
   const idTransaction = async () => {
     console.log(transactionId);
@@ -19,6 +19,7 @@ export default function ModalTransaction() {
       setAuthToken(localStorage.getItem("token"));
       const response = await API.get(`/transaction/${transactionId}`);
       console.log(response.data.data.transactionDetail);
+      setGetStatus(response.data.data.status);
       setGetTransaction(response.data.data.transactionDetail);
     } catch (error) {
       console.log(error);
@@ -51,7 +52,7 @@ export default function ModalTransaction() {
                   <Col className="" style={{ fontSize: "0.8rem" }}>
                     <p className="fs-5 fw-bold mb-2">{item.product.title}</p>
                     <p className="mb-1">
-                      {item.transactionDetailTopping.map((x) => x.createdAt)}
+                      {new Date(item.updatedAt).toUTCString()}
                     </p>
                     <p className="mb-1">
                       <span className="fw-bold">Topping : </span>
@@ -80,7 +81,7 @@ export default function ModalTransaction() {
                 style={{ fontSize: "0.8rem" }}
                 as="input"
                 type="submit"
-                value="On The Way"
+                value={getStatus}
               />
               <p style={{ fontSize: "0.8rem" }}>Sub Total : </p>
               <p className="fw-bold" style={{ fontSize: "0.8rem" }}>
