@@ -182,11 +182,8 @@ exports.addTransaction = async (req, res) => {
 exports.getTransactions = async (req, res) => {
   try {
     const allTransactions = await transaction.findAll({
-      // where: {
-      //   userId: req.user.id,
-      // },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt"],
       },
       include: [
         {
@@ -233,7 +230,7 @@ exports.getTransactions = async (req, res) => {
 
     res.status(201).send({
       status: "success",
-      // data: allTransactions,
+
       data: {
         transaction: allTransactions.map((item) => ({
           Id: item.id,
@@ -268,25 +265,23 @@ exports.getTransaction = async (req, res) => {
   try {
     const { id } = req.params;
     const Transaction = await transaction.findOne({
-      where: {
-        id,
-      },
+      where: { id },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt"],
       },
       include: [
         {
           model: user,
           as: "user",
           attributes: {
-            exclude: ["createdAt", "updatedAt", "password", "image", "role"],
+            exclude: ["createdAt", "password", "image", "role"],
           },
         },
         {
           model: transactionDetail,
           as: "transactionDetail",
           attributes: {
-            exclude: ["createdAt", "updatedAt"],
+            exclude: ["createdAt"],
           },
           include: [
             {
@@ -327,10 +322,12 @@ exports.getTransaction = async (req, res) => {
     });
   }
 };
+
 exports.updateTransaction = async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;
+
     await transaction.update(
       {
         status: body.status,
@@ -411,7 +408,7 @@ exports.updateTransaction = async (req, res) => {
 };
 
 exports.deleteTransaction = async (req, res) => {
-  // code here
+  s;
   try {
     const { id } = req.params;
     await transaction.destroy({
@@ -434,21 +431,21 @@ exports.userTransactions = async (req, res) => {
         userId: req.user.id,
       },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt"],
       },
       include: [
         {
           model: user,
           as: "user",
           attributes: {
-            exclude: ["createdAt", "updatedAt", "password", "image", "role"],
+            exclude: ["createdAt", "password", "image", "role"],
           },
         },
         {
           model: transactionDetail,
           as: "transactionDetail",
           attributes: {
-            exclude: ["createdAt", "updatedAt"],
+            exclude: ["createdAt"],
           },
           include: [
             {
@@ -483,7 +480,8 @@ exports.userTransactions = async (req, res) => {
       status: "success",
       data: {
         transaction: allTransactions.map((item) => ({
-          Id: item.userId,
+          id: item.id,
+          updatedAt: item.updatedAt,
           userOrder: item.user,
           status: item.status,
           order: item.transactionDetail.map((x) => ({

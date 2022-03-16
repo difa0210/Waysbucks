@@ -119,7 +119,6 @@ exports.updateProduct = async (req, res) => {
 };
 
 exports.deleteProduct = async (req, res) => {
-  // code here
   try {
     const { id } = req.params;
     await product.destroy({

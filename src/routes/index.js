@@ -43,7 +43,7 @@ const {
 
 // Route
 // add route register, login, checkAuth here
-router.post("/register", register, uploadFile("image"));
+router.post("/register", uploadFile("image"), register);
 router.post("/login", login);
 router.get("/check-auth", auth, checkAuth);
 

@@ -1,7 +1,3 @@
-// body productId, toppingIds
-// insert ke cart
-// carttopping toppingIds Loop
-// productid 2 toppingids [1,2,3,5,6]
 const joi = require("joi");
 const { Op } = require("sequelize");
 const { user, topping, product, CartTopping, Cart } = require("../../models");

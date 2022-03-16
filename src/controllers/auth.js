@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
       image: "",
     });
 
-    const SECRET_KEY = "Difa Tampan";
+    const SECRET_KEY = "DifaTampan";
     const token = jwt.sign({ id: user.id }, SECRET_KEY);
 
     res.status(201).send({
@@ -88,13 +88,6 @@ exports.login = async (req, res) => {
         message: "Email & Password not found",
       });
     }
-
-    // const tokenData = {
-    //   id: userExist.id,
-    //   fullName: userExist.fullName,
-    //   email: userExist.email,
-    //   status: userExist.status,
-    // };
 
     const token = jwt.sign({ id: userExist.id }, process.env.SECRET_KEY);
 
