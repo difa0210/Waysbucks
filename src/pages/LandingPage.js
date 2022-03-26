@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import convertRupiah from "rupiah-format";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image1 from "../image/Rectangle 3.png";
-import { Image, Row, Col, Card } from "react-bootstrap";
+import { Image, Row, Col, Card, Container } from "react-bootstrap";
 import { ModalContext } from "../Context/modalContext";
 import { API } from "../config/api";
 
@@ -30,7 +30,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="container p-5">
+    <Container className="mt-4">
       <Row
         fluid="lg"
         className="p-5 text-white"
@@ -42,24 +42,24 @@ export default function LandingPage() {
         }}
       >
         <Col lg={8} className="">
-          <p
+          <Col
             className="fw-bold"
             style={{
               fontSize: "4rem",
             }}
           >
             WAYSBUCKS
-          </p>
-          <p className="fs-3 mb-4">
+          </Col>
+          <Col className="fs-3 mb-4">
             Things are changing, but we're still here for you
-          </p>
-          <p className="fs-5 mb-4">
+          </Col>
+          <Col className="fs-5 mb-4">
             We have temporarily closed our in-store cafes, but select grocery
             and drive-thru locations remaining open.
             <span className="fw-bold"> Waysbucks</span> Drivers is also
             available
-          </p>
-          <p className="fs-5">Let's Order...</p>
+          </Col>
+          <Col className="fs-5">Let's Order...</Col>
         </Col>
         <Col lg={4} className="img-jumbotron">
           <Image style={{ borderRadius: "1rem" }} src={Image1} />
@@ -67,7 +67,9 @@ export default function LandingPage() {
       </Row>
 
       <Row style={{ color: "#BD0707" }}>
-        <p className="fs-2 fw-bold my-4">Let's Order</p>
+        <Col lg={12} className="fs-2 fw-bold my-5">
+          Let's Order
+        </Col>
         {allProduct &&
           allProduct.map((item, index) => (
             <Col
@@ -103,6 +105,6 @@ export default function LandingPage() {
             </Col>
           ))}
       </Row>
-    </div>
+    </Container>
   );
 }

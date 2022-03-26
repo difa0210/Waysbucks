@@ -6,12 +6,11 @@ import Image1 from "../image/Mask Group.png";
 import Image3 from "../image/logoProfile.png";
 import Image4 from "../image/barcode.png";
 
-import { Button, Image, Row, Col } from "react-bootstrap";
+import { Button, Image, Row, Col, Container } from "react-bootstrap";
 import { UserContext } from "../Context/userContext";
 import { API, setAuthToken } from "../config/api";
 
 export default function Profile() {
-  // const { myId } = useParams();
   const [getTransaction, setGetTransaction] = useState([]);
   const [user, setUser] = useContext(UserContext);
 
@@ -57,7 +56,7 @@ export default function Profile() {
   if (!user) return <div>Loading</div>;
 
   return (
-    <div className="container p-5">
+    <Container className="p-0">
       <Row style={{ color: "#BD0707" }}>
         <Col lg={6}>
           <Row className="mb-3 fw-bold fs-3">My Profile</Row>
@@ -66,10 +65,10 @@ export default function Profile() {
               <Image style={{ borderRadius: "0.5rem" }} src={Image1} />
             </Col>
             <Col lg={8} className="fs-5">
-              <p className="fw-bold m-0">Full Name</p>
-              <p>{user.name}</p>
-              <p className="fw-bold m-0">Email</p>
-              <p>{user.email}</p>
+              <Col className="fw-bold">Full Name</Col>
+              <Col className="mb-4">{user.name}</Col>
+              <Col className="fw-bold">Email</Col>
+              <Col>{user.email}</Col>
             </Col>
           </Row>
         </Col>
@@ -81,7 +80,7 @@ export default function Profile() {
               <Row
                 key={index}
                 style={{ backgroundColor: "#F6DADA" }}
-                className="p-4 mb-5"
+                className="p-4"
               >
                 {item.order.map((items, indexs) => (
                   <Col lg={9} className="" key={indexs}>
@@ -94,18 +93,18 @@ export default function Profile() {
                       </Col>
 
                       <Col className="" lg={9} style={{ fontSize: "0.8rem" }}>
-                        <p className="fs-5 fw-bold mb-2">{items.title}</p>
-                        <p className="mb-1">
+                        <Col className="fs-5 fw-bold mb-2">{items.title}</Col>
+                        <Col className="mb-1">
                           {new Date(item.updatedAt).toUTCString()}
-                        </p>
-                        <p className="mb-1">
+                        </Col>
+                        <Col className="mb-1">
                           <span className="fw-bold">Topping : </span>
                           {items.topping.map((x) => x.title) + ""}
-                        </p>
-                        <p className="">
+                        </Col>
+                        <Col className="">
                           <span className="fw-bold">Price : </span>
                           {convertRupiah.convert(items.totalPrice)}
-                        </p>
+                        </Col>
                       </Col>
                     </Row>
                   </Col>
@@ -118,7 +117,7 @@ export default function Profile() {
                   <Col className="d-flex justify-content-center">
                     <Image className="mb-3" src={Image4} />
                   </Col>
-                  <Col className="fw-bold d-flex flex-column justify-content-center text-center">
+                  <Col className="d-flex flex-column justify-content-center text-center mb-3">
                     {item.status === "Waiting Approve" ? (
                       <Button
                         variant="primary"
@@ -152,17 +151,17 @@ export default function Profile() {
                         {item.status}
                       </Button>
                     )}
-                    Sub Total :{" "}
-                    <p style={{ fontSize: "0.8rem" }}>
+                    Sub Total :
+                    <Col style={{ fontSize: "0.8rem" }} className="fw-bold">
                       {convertRupiah.convert(
                         item.order.reduce((a, b) => {
                           return a + b.totalPrice;
                         }, 0)
                       )}
-                    </p>
+                    </Col>
                   </Col>
                   {item.status === "On The Way" ? (
-                    <>
+                    <Col className="fw-bold d-flex flex-column justify-content-center text-center">
                       <Button
                         variant="primary"
                         size="sm"
@@ -171,7 +170,7 @@ export default function Profile() {
                       >
                         Finish
                       </Button>
-                    </>
+                    </Col>
                   ) : (
                     " "
                   )}
@@ -180,6 +179,6 @@ export default function Profile() {
             ))}
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }

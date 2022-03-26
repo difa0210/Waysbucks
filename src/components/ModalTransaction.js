@@ -50,20 +50,22 @@ export default function ModalTransaction() {
                     />
                   </Col>
                   <Col className="" style={{ fontSize: "0.8rem" }}>
-                    <p className="fs-5 fw-bold mb-2">{item.product.title}</p>
-                    <p className="mb-1">
+                    <Col className="fs-5 fw-bold mb-2">
+                      {item.product.title}
+                    </Col>
+                    <Col className="mb-1">
                       {new Date(item.updatedAt).toUTCString()}
-                    </p>
-                    <p className="mb-1">
+                    </Col>
+                    <Col className="mb-1">
                       <span className="fw-bold">Topping : </span>
                       {item.transactionDetailTopping.map(
                         (x) => x.topping.title
                       )}
-                    </p>
-                    <p className="">
+                    </Col>
+                    <Col className="">
                       <span className="fw-bold">Price : </span>
                       {convertRupiah.convert(item.price)}
-                    </p>
+                    </Col>
                   </Col>
                 </Row>
               ))}
@@ -76,22 +78,32 @@ export default function ModalTransaction() {
               <Image className="mb-3" src={Image4} />
             </Col>
             <Col className="fw-bold d-flex flex-column justify-content-center text-center">
-              <Button
-                className="mb-2"
-                style={{ fontSize: "0.8rem" }}
-                as="input"
-                type="submit"
-                value={getStatus}
-              />
-              <p style={{ fontSize: "0.8rem" }}>Sub Total : </p>
-              <p className="fw-bold" style={{ fontSize: "0.8rem" }}>
+              {getStatus === "Waiting Approve" ? (
+                <Button variant="primary" size="sm" style={{ margin: "2px" }}>
+                  {getStatus}
+                </Button>
+              ) : getStatus === "Success" ? (
+                <Button variant="success" size="sm" style={{ margin: "2px" }}>
+                  {getStatus}
+                </Button>
+              ) : getStatus === "On The Way" ? (
+                <Button variant="primary" size="sm" style={{ margin: "2px" }}>
+                  {getStatus}
+                </Button>
+              ) : (
+                <Button variant="danger" size="sm" style={{ margin: "2px" }}>
+                  {getStatus}
+                </Button>
+              )}
+              <Col style={{ fontSize: "0.8rem" }}>Sub Total : </Col>
+              <Col className="fw-bold" style={{ fontSize: "0.8rem" }}>
                 {convertRupiah.convert(
                   getTransaction &&
                     getTransaction.reduce((a, b) => {
                       return a + b.price;
                     }, 0)
                 )}
-              </p>
+              </Col>
             </Col>
           </Col>
         </Row>

@@ -39,19 +39,24 @@ const NavBar = () => {
   }, []);
 
   return (
-    <>
-      <div className="container p-0">
-        <Navbar className="" expand="lg">
-          <Container className="">
-            <Navbar.Brand>
-              <Link to="/">
-                <Image src={Image1} />
-              </Link>
-            </Navbar.Brand>
-            <div className="">
-              {user ? (
-                <>
-                  <Link to="/cart">
+    <Container className="p-0">
+      <Navbar className="" expand="lg">
+        <Container className="">
+          <Navbar.Brand>
+            <Link to="/">
+              <Image src={Image1} />
+            </Link>
+          </Navbar.Brand>
+          <Container className="d-flex align-items-center justify-content-end">
+            {user ? (
+              <>
+                {user.role === "admin" ? (
+                  ""
+                ) : (
+                  <Link
+                    to="/cart"
+                    className="d-flex align-items-center justify-content-center"
+                  >
                     {carts.length == 0 ? (
                       <Button className="btn position-relative" variant="">
                         <Image src={Image5} />
@@ -63,107 +68,107 @@ const NavBar = () => {
                       </Button>
                     )}
                   </Link>
-                  <Button className="" variant="">
-                    <InputGroup className="mb-3">
-                      <Dropdown>
-                        <Dropdown.Toggle>
-                          <Image src={Image2} />
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          {user.role === "admin" ? (
-                            <>
-                              <Dropdown.Item
-                                style={{ color: "#BD0707" }}
-                                href="/products"
-                                className="mb-3 fw-bold"
-                              >
-                                <Image
-                                  src={require("../image/product.png")}
-                                  className="me-3"
-                                />
-                                Add Products
-                              </Dropdown.Item>
+                )}
+                <Button className="" variant="">
+                  <InputGroup className="mb-3">
+                    <Dropdown>
+                      <Dropdown.Toggle>
+                        <Image src={Image2} />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        {user.role === "admin" ? (
+                          <>
+                            <Dropdown.Item
+                              style={{ color: "#BD0707" }}
+                              href="/products"
+                              className="mb-3 fw-bold"
+                            >
+                              <Image
+                                src={require("../image/product.png")}
+                                className="me-3"
+                              />
+                              Add Products
+                            </Dropdown.Item>
 
-                              <Dropdown.Item
-                                style={{ color: "#BD0707" }}
-                                href="/topping"
-                                className="mb-3 fw-bold"
-                              >
-                                <Image
-                                  src={require("../image/topping.png")}
-                                  className="me-3"
-                                />
-                                Add Topping
-                              </Dropdown.Item>
+                            <Dropdown.Item
+                              style={{ color: "#BD0707" }}
+                              href="/topping"
+                              className="mb-3 fw-bold"
+                            >
+                              <Image
+                                src={require("../image/topping.png")}
+                                className="me-3"
+                              />
+                              Add Topping
+                            </Dropdown.Item>
 
-                              <Dropdown.Item
-                                style={{ color: "#BD0707" }}
-                                href="/transaction"
-                                className="mb-3 fw-bold"
-                              >
-                                <Image
-                                  src={require("../image/topping.png")}
-                                  className="me-3"
-                                />
-                                Transactions
-                              </Dropdown.Item>
-                            </>
-                          ) : (
-                            <>
-                              <Dropdown.Item
-                                style={{ color: "#BD0707" }}
-                                href="/profile"
-                                className="mb-3 fw-bold"
-                              >
-                                <Image src={Image3} className="me-3" />
-                                Profile
-                              </Dropdown.Item>
-                            </>
-                          )}
-                          <hr
-                            style={{ color: "#BD0707" }}
-                            className="opacity-100"
-                          />
-                          <Dropdown.Item
-                            style={{ color: "#BD0707" }}
-                            href="/"
-                            className="fw-bold"
-                            onClick={() => {
-                              localStorage.removeItem("token");
-                              setUser(null);
-                            }}
-                          >
-                            <Image src={Image4} className="me-3" />
-                            Logout
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </InputGroup>
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    onClick={() => toggle("Login")}
-                    className="bg-btn-white me-3 fw-bold"
-                    variant=""
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    onClick={() => toggle("Register")}
-                    className="bg-btn-red fw-bold"
-                    variant=""
-                  >
-                    Register
-                  </Button>
-                </>
-              )}
-            </div>
+                            <Dropdown.Item
+                              style={{ color: "#BD0707" }}
+                              href="/transaction"
+                              className="mb-3 fw-bold"
+                            >
+                              <Image
+                                src={require("../image/topping.png")}
+                                className="me-3"
+                              />
+                              Transactions
+                            </Dropdown.Item>
+                          </>
+                        ) : (
+                          <>
+                            <Dropdown.Item
+                              style={{ color: "#BD0707" }}
+                              href="/profile"
+                              className="mb-3 fw-bold"
+                            >
+                              <Image src={Image3} className="me-3" />
+                              Profile
+                            </Dropdown.Item>
+                          </>
+                        )}
+                        <hr
+                          style={{ color: "#BD0707" }}
+                          className="opacity-100"
+                        />
+                        <Dropdown.Item
+                          style={{ color: "#BD0707" }}
+                          href="/"
+                          className="fw-bold"
+                          onClick={() => {
+                            localStorage.removeItem("token");
+                            setUser(null);
+                          }}
+                        >
+                          <Image src={Image4} className="me-3" />
+                          Logout
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </InputGroup>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  onClick={() => toggle("Login")}
+                  className="bg-btn-white me-3 fw-bold"
+                  variant=""
+                >
+                  Login
+                </Button>
+                <Button
+                  onClick={() => toggle("Register")}
+                  className="bg-btn-red fw-bold"
+                  variant=""
+                >
+                  Register
+                </Button>
+              </>
+            )}
           </Container>
-        </Navbar>
-      </div>
-    </>
+        </Container>
+      </Navbar>
+    </Container>
   );
 };
 

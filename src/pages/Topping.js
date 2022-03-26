@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button, Image, Row, Col, Alert } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Image,
+  Row,
+  Col,
+  Alert,
+  Container,
+} from "react-bootstrap";
 import { API } from "../config/api";
 
 export default function Topping() {
@@ -65,7 +73,7 @@ export default function Topping() {
   };
 
   return (
-    <div className="container p-5">
+    <Container className="">
       <Row style={{ color: "#BD0707" }}>
         <Col lg={7} className="p-5">
           <Form onSubmit={handleSubmit}>
@@ -146,6 +154,6 @@ export default function Topping() {
           )}
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }

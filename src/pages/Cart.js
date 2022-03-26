@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import convertRupiah from "rupiah-format";
 import Image2 from "../image/trash.png";
 import Image3 from "../image/invoices 1.png";
-import { Form, Button, Image, Row, Col } from "react-bootstrap";
+import { Form, Button, Image, Row, Col, Container } from "react-bootstrap";
 import { API, setAuthToken } from "../config/api";
 
 export default function Cart() {
@@ -79,14 +79,14 @@ export default function Cart() {
     }
   };
 
-  if (!carts) return <div>Loading</div>;
+  if (!carts) return <Container>Loading</Container>;
   return (
-    <div className="container p-5">
-      <Row style={{ color: "#BD0707" }}>
-        <Col className="">
+    <Container>
+      <Row style={{ color: "#BD0707" }} className="p-0">
+        <Col className="p-0">
           <Row className="fs-2 fw-bold mb-4">My Cart</Row>
-          <Row className="fw-bold">Review Your Order</Row>
-          <hr className="opacity-100" />
+          <Row className="fw-bold mb-3">Review Your Order</Row>
+          <hr className="row opacity-100" />
           {carts &&
             carts.map((item, index) => (
               <Row key={index} className="mb-4">
@@ -96,16 +96,18 @@ export default function Cart() {
                     src={`http://localhost:5000/uploads/${item.product.image}`}
                   />
                 </Col>
-                <Col lg={8} className="fw-bold">
-                  <p>{item.product.title}</p>
-                  <p>
+                <Col lg={8} className="fw-bold p-0">
+                  <Col className="mb-2 fs-5">{item.product.title}</Col>
+                  <Col>
                     <span className="fw-bold">
-                      Topping : {item.carttopping.map((x) => x.topping.title)}{" "}
+                      Topping : {item.carttopping.map((x) => x.topping.title)}
                     </span>
-                  </p>
+                  </Col>
                 </Col>
                 <Col className="text-end p-0 fw-bold">
-                  <p>{convertRupiah.convert(item.price)}</p>{" "}
+                  <Col className="mb-2">
+                    {convertRupiah.convert(item.price)}
+                  </Col>
                   <Button
                     className="p-0"
                     variant=""
@@ -118,7 +120,7 @@ export default function Cart() {
               </Row>
             ))}
 
-          <hr className="opacity-100" />
+          <hr className="row opacity-100" />
           <Row>
             <Col lg={7}>
               <hr className="opacity-100" />
@@ -145,7 +147,7 @@ export default function Cart() {
               </Row>
             </Col>
             <Col
-              className="m-3 d-flex flex-column justify-content-center align-items-center fw-bold"
+              className="m-3 py-3 d-flex flex-column justify-content-center align-items-center fw-bold"
               style={{
                 borderRadius: "0.3rem",
                 border: "2px solid #BD0707",
@@ -153,7 +155,7 @@ export default function Cart() {
               }}
             >
               <Image className="mb-3" src={Image3} />
-              <p className="opacity-25 m-0">Attached of Transaction</p>
+              <Row className="opacity-25 m-0">Attached of Transaction</Row>
             </Col>
           </Row>
         </Col>
@@ -258,6 +260,6 @@ export default function Cart() {
           </Form>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }

@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Form, Button, Image, Row, Col, Alert } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Image,
+  Row,
+  Col,
+  Alert,
+  Container,
+} from "react-bootstrap";
 import { API } from "../config/api";
 
 export default function Products() {
@@ -62,7 +70,7 @@ export default function Products() {
   };
 
   return (
-    <div className="container p-5">
+    <Container className="">
       <Row style={{ color: "#BD0707" }}>
         <Col lg={7} className="p-5">
           <Form onSubmit={handleSubmit}>
@@ -112,13 +120,11 @@ export default function Products() {
                 border: "1px solid #BD0707",
               }}
             >
-              {" "}
               <Form.Control
                 type="file"
                 placeholder="Photo Product"
                 name="image"
                 onChange={handleChange}
-                // id={<Image src={Image2} />}
               />
             </Form.Group>
             <Button
@@ -136,7 +142,6 @@ export default function Products() {
         </Col>
 
         <Col lg={5} className="d-flex justify-content-center">
-          {" "}
           {preview && (
             <Image
               className=""
@@ -146,6 +151,6 @@ export default function Products() {
           )}
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }

@@ -3,18 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import cancel from "../image/cancel.png";
 import done from "../image/done.png";
 import convertRupiah from "rupiah-format";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Container, Col } from "react-bootstrap";
 import { API, setAuthToken } from "../config/api";
 import { ModalContext } from "../Context/modalContext";
-import { useParams } from "react-router-dom";
 
 export default function Transaction() {
-  const { transactionId } = useParams();
   const [getTransactions, setGetTransactions] = useState();
   const [, , , , toggle] = useContext(ModalContext);
-  const [form, setForm] = useState({
-    status: "",
-  });
 
   const transactions = async () => {
     try {
@@ -72,18 +67,18 @@ export default function Transaction() {
     }
   };
 
-  if (!getTransactions) return <div>Loading</div>;
+  if (!getTransactions) return <Container>Loading</Container>;
 
   return (
-    <div className="container p-5">
-      <p className="fw-bold fs-2 mb-4" style={{ color: "#BD0707" }}>
+    <Container className="">
+      <Col className="fw-bold fs-2 mb-4" style={{ color: "#BD0707" }}>
         Income Transaction
-      </p>
+      </Col>
 
-      <Table striped bordered hover>
+      <Table striped bordered hover variant="dark">
         <thead>
           <tr className="text-center">
-            <th>No.</th>
+            <th className="">No.</th>
             <th>Name</th>
             <th>Address</th>
             <th>Post Code</th>
@@ -106,7 +101,7 @@ export default function Transaction() {
                     onClick={() => {
                       toggle("Transaction", item.Id);
                     }}
-                    style={{ color: "blue" }}
+                    style={{ color: "white" }}
                     variant=""
                   >
                     {convertRupiah.convert(
@@ -128,7 +123,7 @@ export default function Transaction() {
                   )}
                 </td>
 
-                <td className="d-flex justify-content-center">
+                <td className="">
                   {item.status === "Waiting Approve" ? (
                     <>
                       <Button
@@ -166,6 +161,6 @@ export default function Transaction() {
             ))}
         </tbody>
       </Table>
-    </div>
+    </Container>
   );
 }
